@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react'
+import { Link } from 'react-router-dom'
 import {
   SlidersHorizontal,
   Plus,
@@ -526,14 +527,17 @@ export const CatalogSection: React.FC<CatalogSectionProps> = ({
                       </div>
                     )}
 
-                    {/* Dress Image with Hover Secondary */}
-                    <div className="aspect-[3/4] w-full overflow-hidden bg-cream-50 relative">
+                    {/* Dress Image with Clickable Link */}
+                    <Link
+                      to={`/products/${product.slug || product.id}`}
+                      className="aspect-[3/4] w-full overflow-hidden bg-cream-50 relative block cursor-pointer"
+                    >
                       <img
                         src={product.images[0]}
                         alt={product.title}
                         className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
                       />
-                    </div>
+                    </Link>
 
                     {/* Content Details */}
                     <div className="p-3.5 flex flex-col flex-grow justify-between space-y-3">
@@ -541,12 +545,17 @@ export const CatalogSection: React.FC<CatalogSectionProps> = ({
                         <span className="text-[10px] uppercase font-bold text-primary-700 tracking-wider">
                           {product.silhouette} • {product.occasion}
                         </span>
-                        <h4
-                          className="font-display text-sm font-bold text-charcoal-900 leading-snug group-hover:text-primary-700 transition-colors line-clamp-2"
-                          title={product.title}
+                        <Link
+                          to={`/products/${product.slug || product.id}`}
+                          className="block cursor-pointer group-hover:text-primary-700"
                         >
-                          {product.title}
-                        </h4>
+                          <h4
+                            className="font-display text-sm font-bold text-charcoal-900 leading-snug group-hover:text-primary-700 transition-colors line-clamp-2"
+                            title={product.title}
+                          >
+                            {product.title}
+                          </h4>
+                        </Link>
                       </div>
 
                       {/* Service Badges */}

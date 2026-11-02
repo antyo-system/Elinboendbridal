@@ -7,6 +7,7 @@ import { PaymentModal } from './components/payment/PaymentModal'
 import { Home } from './pages/Home'
 import { Articles } from './pages/Articles'
 import { ArticleDetail } from './pages/ArticleDetail'
+import { ProductDetail } from './pages/ProductDetail'
 import { About } from './pages/About'
 
 export const App: React.FC = () => {
@@ -20,6 +21,7 @@ export const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Navigate to="/#catalog" replace />} />
+          <Route path="/products/:id" element={<ProductDetail />} />
           <Route path="/articles" element={<Articles />} />
           <Route path="/articles/:slug" element={<ArticleDetail />} />
           <Route path="/about" element={<About />} />
