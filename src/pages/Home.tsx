@@ -51,7 +51,7 @@ export const Home: React.FC = () => {
 
             <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
               <a
-                href="https://wa.me/6287772636627?text=Hello%20Elinboend%20Bridal%2C%20I%20would%20like%20to%20consult%20about%20a%20bespoke%20custom%20wedding%20gown."
+                href="https://wa.me/6287880111169?text=Hello%20Elinboend%20Bridal%2C%20I%20would%20like%20to%20consult%20about%20a%20bespoke%20custom%20wedding%20gown."
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center justify-center space-x-2 bg-primary-600 hover:bg-primary-500 text-white px-7 py-3.5 rounded-none font-bold text-xs uppercase tracking-wider shadow-lg transition-all"

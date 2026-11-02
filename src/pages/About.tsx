@@ -333,7 +333,7 @@ export const About: React.FC = () => {
               Mondays)
             </p>
             <p>
-              <strong>WhatsApp Concierge:</strong> +62 877-7263-6627
+              <strong>WhatsApp Concierge:</strong> +62 878-8011-1169
             </p>
           </div>
         </div>

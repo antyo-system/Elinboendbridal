@@ -454,7 +454,7 @@ export const PaymentModal: React.FC = () => {
 
             <div className="space-y-2 pt-2">
               <a
-                href={`https://wa.me/6287772636627?text=Hello%20Elinboend%20Bridal!%20My%20payment%20for%20order%20${orderNumber}%20has%20been%20settled%20via%20Midtrans%20for%20${customerInfo.name}.%20Please%20schedule%20my%20fitting%20session.`}
+                href={`https://wa.me/6287880111169?text=Hello%20Elinboend%20Bridal!%20My%20payment%20for%20order%20${orderNumber}%20has%20been%20settled%20via%20Midtrans%20for%20${customerInfo.name}.%20Please%20schedule%20my%20fitting%20session.`}
                 target="_blank"
                 rel="noreferrer"
                 className="w-full bg-charcoal-900 hover:bg-charcoal-800 text-white py-3 px-4 font-bold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 transition-all cursor-pointer"

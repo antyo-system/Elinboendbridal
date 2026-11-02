@@ -44,7 +44,7 @@ export const HeroBanner: React.FC = () => {
           </a>
 
           <a
-            href="https://wa.me/6287772636627?text=Hello%20Elinboend%20Bridal%2C%20I%20would%20like%20to%20consult%20about%20a%20wedding%20gown%20fitting."
+            href="https://wa.me/6287880111169?text=Hello%20Elinboend%20Bridal%2C%20I%20would%20like%20to%20consult%20about%20a%20wedding%20gown%20fitting."
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center space-x-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 px-6 py-3.5 rounded-xl font-bold text-xs tracking-wider uppercase backdrop-blur-xs transition-all"

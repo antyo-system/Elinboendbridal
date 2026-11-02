@@ -50,7 +50,7 @@ export const CartDrawer: React.FC = () => {
       paymentMode === 'dp_50' ? downPayment : total
     )}%0A%0APlease confirm fitting schedule and availability.`
 
-    window.open(`https://wa.me/6287772636627?text=${message}`, '_blank')
+    window.open(`https://wa.me/6287880111169?text=${message}`, '_blank')
   }
 
   return (
