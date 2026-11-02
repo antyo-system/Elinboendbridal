@@ -467,3 +467,4 @@ export const CatalogSection: React.FC<CatalogSectionProps> = ({
     </section>
   )
 }
+

@@ -150,3 +150,4 @@ export const FlashTrunkShow: React.FC = () => {
     </section>
   )
 }
+

@@ -480,3 +480,4 @@ export const PaymentModal: React.FC = () => {
     </div>
   )
 }
+

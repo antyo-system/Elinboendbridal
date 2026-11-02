@@ -225,3 +225,4 @@ CREATE POLICY "Public can create orders" ON orders FOR INSERT WITH CHECK (true);
 CREATE POLICY "Public can view their own order by order_number" ON orders FOR SELECT USING (true);
 CREATE POLICY "Public can create order items" ON order_items FOR INSERT WITH CHECK (true);
 CREATE POLICY "Public can create fitting appointments" ON fitting_appointments FOR INSERT WITH CHECK (true);
+

@@ -74,3 +74,4 @@ Comprehensive technical stack specification for the **Elinboend Bridal** web app
   - `schema.org/Article` for bridal journal content.
   - `schema.org/FAQPage` for fitting and rental inquiries.
 - **Image Optimization**: Local lazy loading, responsive srcset generation, and blur-up placeholder patterns.
+

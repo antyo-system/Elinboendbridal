@@ -113,3 +113,4 @@ export const ArticleDetail: React.FC = () => {
     </article>
   )
 }
+

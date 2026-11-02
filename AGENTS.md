@@ -52,3 +52,4 @@
   - Use Conventional Commits format (`feat:`, `fix:`, `chore:`, `refactor:`, `docs:`).
   - Follow Semantic Versioning (`MAJOR.MINOR.PATCH`).
   - Maintain primary work on `main` branch.
+

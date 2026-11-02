@@ -106,3 +106,4 @@ Follows the proven high-converting layout from the reference project:
 - **SEO & Social Sharing**: Complete OpenGraph, Twitter Card tags, and Schema.org structured data (`BridalShop`, `Product`, `Article`, `BreadcrumbList`).
 - **Security**: Strict Supabase Row Level Security (RLS), sanitized payment webhooks with SHA-512 signature verification, environment secret protection.
 - **Accessibility & UX**: Compliant with WCAG 2.1 AA contrast standards, keyboard accessible drawer, screen-reader friendly filter controls.
+

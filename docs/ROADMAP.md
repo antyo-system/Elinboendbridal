@@ -84,3 +84,4 @@ Phase 5: Performance, SEO & Launch
 - [ ] Structured Data JSON-LD (`BridalShop`, `LocalBusiness`, `Product`, `FAQPage`).
 - [ ] Asset compression with WebP formats for gown photo galleries.
 - [ ] Lighthouse audit targeting >90 scores.
+

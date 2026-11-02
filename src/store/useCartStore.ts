@@ -122,3 +122,4 @@ export const useCartStore = create<CartState>((set, get) => ({
     return Math.round(subtotal * 0.5)
   },
 }))
+

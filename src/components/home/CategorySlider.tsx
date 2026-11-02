@@ -108,3 +108,4 @@ export const CategorySlider: React.FC<CategorySliderProps> = ({
     </section>
   )
 }
+
