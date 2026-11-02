@@ -14,8 +14,7 @@ Phase 1: Foundation & Setup
 
 Phase 2: Core Storefront & Catalog Experience
    ├── Top Navigation Header & Responsive Mobile Menu
-   ├── Hero Banner Carousel & Silhouette/Occasion Switcher
-   ├── Flash Trunk Show Section with Countdown Timer
+   ├── Fixed Hero Hook Banner & Curated Collection Cards
    ├── Marketplace Catalog with Real-time Filtering
    └── Articles (Bridal Journal) & About Atelier Pages
 
@@ -51,10 +50,9 @@ Phase 5: Performance, SEO & Launch
 - [ ] Typography setup: Elegant serif display fonts for bridal headings + crisp sans-serif for body/filters.
 
 ### Phase 2: Core Pages & Marketplace (Priority Next)
-- [ ] **Home Page (`/`)**:
-  - Hero Carousel with high-res bridal imagery and direct CTAs.
-  - "Discover by Silhouette" (Ballgown, A-Line, Mermaid, Column) and "Discover by Occasion" (Ceremony, Reception, Evening, Bridesmaid).
-  - Flash Trunk Show with real-time countdown timer.
+- [x] **Home Page (`/`)**:
+  - Fixed Hero Hook with high-impact editorial imagery and direct CTAs.
+  - Curated Collection Cards (Holy Matrimony, Reception, Evening Gala, Bridesmaids).
   - Marketplace layout with left sidebar filters (Price slider, Occasion, Silhouette, Size, Rental vs Buy).
   - Luxury Product Cards with hover effects, badges, price comparison, and quick-rent buttons.
 - [ ] **Articles / Bridal Journal (`/articles`)**:

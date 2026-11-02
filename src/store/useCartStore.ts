@@ -44,9 +44,6 @@ export const useCartStore = create<CartState>((set, get) => ({
         security_deposit: 1500000,
         is_rental_available: true,
         is_purchase_available: true,
-        is_flash_sale: true,
-        flash_sale_discount_percent: 24,
-        flash_sale_stock: 1,
         images: [
           'https://images.unsplash.com/photo-1594552072238-b8a33785b261?auto=format&fit=crop&w=800&q=80',
         ],

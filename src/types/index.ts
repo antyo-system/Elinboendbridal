@@ -31,9 +31,6 @@ export interface Product {
   security_deposit: number
   is_rental_available: boolean
   is_purchase_available: boolean
-  is_flash_sale?: boolean
-  flash_sale_discount_percent?: number
-  flash_sale_stock?: number
   badge_label?: string
   images: string[]
   description: string
@@ -47,7 +44,6 @@ export interface CategorySlide {
   label: string
   description: string
   image: string
-  type: 'silhouette' | 'occasion'
 }
 
 export interface CartItem {
@@ -82,4 +78,3 @@ export interface Article {
 
 export type PaymentMethod = 'qris' | 'bca_va' | 'mandiri_va' | 'credit_card'
 export type PaymentMode = 'full' | 'dp_50'
-

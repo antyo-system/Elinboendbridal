@@ -1,41 +1,34 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Sparkles, Calendar, ShieldCheck, Heart } from 'lucide-react'
+import { ArrowRight, Sparkles, Calendar } from 'lucide-react'
 import { HeroBanner } from '../components/home/HeroBanner'
 import { CategorySlider } from '../components/home/CategorySlider'
-import { FlashTrunkShow } from '../components/home/FlashTrunkShow'
 import { CatalogSection } from '../components/home/CatalogSection'
 import { ARTICLES_DATA } from '../data/mockData'
 
 export const Home: React.FC = () => {
-  const [categoryTab, setCategoryTab] = useState<'silhouette' | 'occasion'>('silhouette')
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
 
   const latestArticles = ARTICLES_DATA.slice(0, 3)
 
   return (
     <div className="pt-4 sm:pt-6 space-y-12 pb-24">
-      {/* 1. Hero Banner Carousel */}
+      {/* 1. Fixed Hero Hook */}
       <HeroBanner />
 
-      {/* 2. Category Slider (By Silhouette & By Occasion) */}
+      {/* 2. Curated Category Selection (Single Recommended Dimension) */}
       <CategorySlider
-        categoryTab={categoryTab}
-        setCategoryTab={setCategoryTab}
         selectedCategory={selectedCategory}
         setSelectedCategory={setSelectedCategory}
       />
 
-      {/* 3. Flash Trunk Show / Limited Specials */}
-      <FlashTrunkShow />
-
-      {/* 4. Marketplace Catalog & Real-time Filter Sidebar */}
+      {/* 3. Marketplace Catalog & Real-time Filter Sidebar */}
       <CatalogSection
         selectedCategory={selectedCategory}
         setSelectedCategory={setSelectedCategory}
       />
 
-      {/* 5. Custom Couture Bespoke Banner (Matches promo block in reference) */}
+      {/* 4. Custom Couture Bespoke Banner */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative overflow-hidden bg-charcoal-900 text-white p-8 sm:p-12 lg:p-16 border border-charcoal-800 shadow-2xl">
           <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#dfc4af_1px,transparent_1px)] [background-size:20px_20px]" />
@@ -78,7 +71,7 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* 6. Bridal Journal / Articles Teaser */}
+      {/* 5. Bridal Journal / Articles Teaser */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-cream-200 pb-3">
           <div className="space-y-1">
@@ -141,4 +134,3 @@ export const Home: React.FC = () => {
     </div>
   )
 }
-

@@ -37,13 +37,9 @@ Follows the proven high-converting layout from the reference project:
   - High-impact editorial photography highlighting "The Haute Bridal Collection".
   - Clear, direct Call-to-Action: *"Explore Wedding Gowns"* & *"Chat Stylist"*.
   - Clean, static luxury hook without slider overengineering.
-- **Curated Category Switcher**:
-  - Tab Switcher: **"By Dress Silhouette"** (Ballgown, A-Line, Mermaid, Sheath/Column) vs. **"By Occasion"** (Wedding Holy Matrimony/Resepsi, Evening Party, Bridesmaid, Engagement/Sangjit).
-  - Horizontal scrollable visual category cards with high-res thumbnails and brief descriptions.
-- **Flash Trunk Show / Exclusive Deals Section**:
-  - Real-time countdown timer (`HH : MM : SS`).
-  - Horizontal scrolling cards for limited-slot rental discounts or seasonal sample sales.
-  - Badges: Discount percentage (`-25%`), stock/slot indicator (`Remaining: 1 Slot`), rental price vs original price.
+- **Curated Collection Discovery**:
+  - Clean, single-dimension category cards focusing on primary celebration events: **Holy Matrimony & Ceremony**, **Wedding Reception**, **Evening Party & Gala**, and **Bridesmaids & Family**.
+  - Streamlined horizontal scrollable cards with high-res thumbnails that directly filter the marketplace catalog without tab toggle friction.
 - **Marketplace Catalog Section**:
   - **Left Sidebar Filter**:
     - Price Range Slider (Min - Max IDR).

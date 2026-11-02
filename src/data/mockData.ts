@@ -1,64 +1,29 @@
 import { Product, CategorySlide, Article } from '../types'
 
 export const CATEGORY_SLIDES: CategorySlide[] = [
-  // By Silhouette
-  {
-    value: 'ballgown',
-    label: 'Grand Ballgown',
-    description: 'Dramatic voluminous skirts and structured corsets for grand royal entrances.',
-    image: 'https://images.unsplash.com/photo-1594552072238-b8a33785b261?auto=format&fit=crop&w=600&q=80',
-    type: 'silhouette',
-  },
-  {
-    value: 'a-line',
-    label: 'A-Line Princess',
-    description: 'Timeless balanced silhouette universally flattering for ceremonies and receptions.',
-    image: 'https://images.unsplash.com/photo-1549416878-b9ca35c2d47b?auto=format&fit=crop&w=600&q=80',
-    type: 'silhouette',
-  },
-  {
-    value: 'mermaid',
-    label: 'Mermaid Couture',
-    description: 'Form-fitting curves flared at the knee with cascading Spanish lace trains.',
-    image: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80',
-    type: 'silhouette',
-  },
-  {
-    value: 'sheath',
-    label: 'Modern Sheath',
-    description: 'Sleek, fluid silk silhouettes tailored for intimate and destination celebrations.',
-    image: 'https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=600&q=80',
-    type: 'silhouette',
-  },
-
-  // By Occasion
   {
     value: 'holy-matrimony',
-    label: 'Holy Matrimony / Akad',
+    label: 'Holy Matrimony & Ceremony',
     description: 'Modest elegance, ethereal high necklines, and sacred cathedral-length veils.',
     image: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=600&q=80',
-    type: 'occasion',
   },
   {
     value: 'reception',
     label: 'Wedding Reception',
     description: 'Glittering Swarovski beadwork and statement trains that shimmer under chandeliers.',
     image: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=600&q=80',
-    type: 'occasion',
   },
   {
     value: 'evening-gala',
     label: 'Evening Party & Gala',
     description: 'Bold jewel-tone velvet and satin gowns designed to command attention.',
     image: 'https://images.unsplash.com/photo-1566737236500-c8ac43014a67?auto=format&fit=crop&w=600&q=80',
-    type: 'occasion',
   },
   {
     value: 'bridesmaid',
     label: 'Bridesmaids & Family',
     description: 'Harmonious pastel shades and comfortable luxury chiffon dresses.',
     image: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80',
-    type: 'occasion',
   },
 ]
 
@@ -80,9 +45,6 @@ export const PRODUCTS_DATA: Product[] = [
     security_deposit: 1500000,
     is_rental_available: true,
     is_purchase_available: true,
-    is_flash_sale: true,
-    flash_sale_discount_percent: 24,
-    flash_sale_stock: 1,
     badge_label: 'Best Seller',
     images: [
       'https://images.unsplash.com/photo-1594552072238-b8a33785b261?auto=format&fit=crop&w=800&q=80',
@@ -111,9 +73,6 @@ export const PRODUCTS_DATA: Product[] = [
     security_deposit: 1200000,
     is_rental_available: true,
     is_purchase_available: true,
-    is_flash_sale: true,
-    flash_sale_discount_percent: 20,
-    flash_sale_stock: 2,
     badge_label: 'Haute Couture',
     images: [
       'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80',
@@ -142,7 +101,6 @@ export const PRODUCTS_DATA: Product[] = [
     security_deposit: 1000000,
     is_rental_available: true,
     is_purchase_available: true,
-    is_flash_sale: false,
     badge_label: 'Modern Bride',
     images: [
       'https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=800&q=80',
@@ -170,9 +128,6 @@ export const PRODUCTS_DATA: Product[] = [
     security_deposit: 800000,
     is_rental_available: true,
     is_purchase_available: true,
-    is_flash_sale: true,
-    flash_sale_discount_percent: 20,
-    flash_sale_stock: 1,
     badge_label: 'Party Exclusive',
     images: [
       'https://images.unsplash.com/photo-1566737236500-c8ac43014a67?auto=format&fit=crop&w=800&q=80',
@@ -200,7 +155,6 @@ export const PRODUCTS_DATA: Product[] = [
     security_deposit: 1500000,
     is_rental_available: true,
     is_purchase_available: true,
-    is_flash_sale: false,
     badge_label: 'Trending',
     images: [
       'https://images.unsplash.com/photo-1549416878-b9ca35c2d47b?auto=format&fit=crop&w=800&q=80',
@@ -228,7 +182,6 @@ export const PRODUCTS_DATA: Product[] = [
     security_deposit: 700000,
     is_rental_available: true,
     is_purchase_available: true,
-    is_flash_sale: false,
     badge_label: 'Popular Rental',
     images: [
       'https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=800&q=80',
@@ -255,9 +208,6 @@ export const PRODUCTS_DATA: Product[] = [
     security_deposit: 1200000,
     is_rental_available: true,
     is_purchase_available: true,
-    is_flash_sale: true,
-    flash_sale_discount_percent: 18,
-    flash_sale_stock: 1,
     badge_label: 'Heritage Couture',
     images: [
       'https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=800&q=80',
@@ -284,7 +234,6 @@ export const PRODUCTS_DATA: Product[] = [
     security_deposit: 500000,
     is_rental_available: true,
     is_purchase_available: true,
-    is_flash_sale: false,
     badge_label: 'Bridesmaid Favorite',
     images: [
       'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80',
@@ -380,4 +329,3 @@ Your private fitting is an intimate milestone where sketches and silhouettes tra
     read_time: '4 min read',
   },
 ]
-

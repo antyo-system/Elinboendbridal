@@ -4,10 +4,10 @@ import {
   Plus,
   Check,
   ChevronDown,
-  Sparkles,
-  Heart,
+  Search,
   ShieldCheck,
   RotateCcw,
+  X,
 } from 'lucide-react'
 import { PRODUCTS_DATA } from '../../data/mockData'
 import { formatCurrency } from '../../utils/formatCurrency'
@@ -25,8 +25,13 @@ export const CatalogSection: React.FC<CatalogSectionProps> = ({
 }) => {
   const { addItem } = useCartStore()
 
-  // Filter States
-  const [maxPrice, setMaxPrice] = useState<number>(25000000)
+  // Search & Filter & Sort States
+  const [searchQuery, setSearchQuery] = useState<string>('')
+  const [isFilterVisible, setIsFilterVisible] = useState<boolean>(true)
+  const [sortBy, setSortBy] = useState<string>('newest')
+
+  // Detailed Filter States
+  const [maxPrice, setMaxPrice] = useState<number>(30000000)
   const [selectedOccasion, setSelectedOccasion] = useState<string>('all')
   const [selectedSilhouette, setSelectedSilhouette] = useState<string>('all')
   const [acquisitionType, setAcquisitionType] = useState<'all' | 'rental' | 'purchase'>('all')
@@ -55,10 +60,38 @@ export const CatalogSection: React.FC<CatalogSectionProps> = ({
 
   const sizes = ['XS', 'S', 'M', 'L', 'XL', 'Custom']
 
-  // Filter Logic
+  // Calculate active filter count
+  const activeFilterCount = useMemo(() => {
+    let count = 0
+    if (searchQuery.trim() !== '') count++
+    if (selectedCategory !== 'all') count++
+    if (maxPrice < 30000000) count++
+    if (selectedOccasion !== 'all') count++
+    if (selectedSilhouette !== 'all') count++
+    if (acquisitionType !== 'all') count++
+    if (selectedSize !== 'all') count++
+    return count
+  }, [
+    searchQuery,
+    selectedCategory,
+    maxPrice,
+    selectedOccasion,
+    selectedSilhouette,
+    acquisitionType,
+    selectedSize,
+  ])
+
+  // Filter & Sort Logic
   const filteredProducts = useMemo(() => {
-    return PRODUCTS_DATA.filter((product) => {
-      // Category slide filter from top
+    const list = PRODUCTS_DATA.filter((product) => {
+      // 1. Search Query
+      if (searchQuery.trim() !== '') {
+        const query = searchQuery.toLowerCase().trim()
+        const searchable = `${product.title} ${product.silhouette} ${product.occasion} ${product.fabric} ${product.color_name} ${product.description}`.toLowerCase()
+        if (!searchable.includes(query)) return false
+      }
+
+      // 2. Category Filter from top cards
       if (selectedCategory !== 'all') {
         const cat = selectedCategory.toLowerCase()
         const matchesSilhouette = product.silhouette.toLowerCase().includes(cat)
@@ -66,31 +99,41 @@ export const CatalogSection: React.FC<CatalogSectionProps> = ({
         if (!matchesSilhouette && !matchesOccasion) return false
       }
 
-      // Max price filter (checks rental price)
+      // 3. Max Price Filter (checks rental price)
       if (product.rental_price > maxPrice) return false
 
-      // Occasion filter
+      // 4. Occasion Filter
       if (selectedOccasion !== 'all' && product.occasion !== selectedOccasion) return false
 
-      // Silhouette filter
+      // 5. Silhouette Filter
       if (selectedSilhouette !== 'all' && product.silhouette !== selectedSilhouette) return false
 
-      // Acquisition filter
+      // 6. Acquisition Filter
       if (acquisitionType === 'rental' && !product.is_rental_available) return false
       if (acquisitionType === 'purchase' && !product.is_purchase_available) return false
 
-      // Size filter
+      // 7. Size Filter
       if (selectedSize !== 'all' && !product.sizes_available.includes(selectedSize)) return false
 
       return true
     })
+
+    // Sort items
+    return list.sort((a, b) => {
+      if (sortBy === 'price-asc') return a.rental_price - b.rental_price
+      if (sortBy === 'price-desc') return b.rental_price - a.rental_price
+      // Default: newest
+      return b.id.localeCompare(a.id)
+    })
   }, [
+    searchQuery,
     selectedCategory,
     maxPrice,
     selectedOccasion,
     selectedSilhouette,
     acquisitionType,
     selectedSize,
+    sortBy,
   ])
 
   const handleAddToCart = (product: Product, type: 'rental' | 'purchase') => {
@@ -106,215 +149,311 @@ export const CatalogSection: React.FC<CatalogSectionProps> = ({
   }
 
   const handleResetFilters = () => {
-    setMaxPrice(25000000)
+    setSearchQuery('')
+    setMaxPrice(30000000)
     setSelectedOccasion('all')
     setSelectedSilhouette('all')
     setAcquisitionType('all')
     setSelectedSize('all')
     setSelectedCategory('all')
+    setSortBy('newest')
   }
 
   return (
     <section id="catalog" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 pt-4">
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
-        {/* ========================================================= */}
-        {/* LEFT SIDEBAR: FILTER CATALOG (Matches Screenshot 2 layout) */}
-        {/* ========================================================= */}
-        <aside className="lg:col-span-1 bg-cream-50/70 border border-cream-200 p-5 space-y-6">
-          <div className="flex items-center justify-between border-b border-cream-300 pb-3">
-            <div className="flex items-center space-x-2">
-              <SlidersHorizontal className="w-4 h-4 text-charcoal-700" />
-              <h3 className="font-display text-sm font-bold tracking-wider uppercase text-charcoal-900">
-                FILTER CATALOG
-              </h3>
-            </div>
+      {/* ==================================================================== */}
+      {/* SEARCH, FILTER TOGGLE & SORT BAR (Matches Reference Project Exactly) */}
+      {/* ==================================================================== */}
+      <div className="grid gap-3 border border-cream-200 bg-white p-3 sm:p-4 lg:grid-cols-[minmax(240px,1fr)_auto] lg:items-center shadow-xs">
+        {/* Search Input on the Left */}
+        <div className="relative flex-1 max-w-md">
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-charcoal-400" />
+          <input
+            type="text"
+            id="search-products-input"
+            aria-label="Search wedding gowns or party dresses"
+            placeholder="Search wedding gowns, evening dresses, lace..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="h-10 w-full border border-cream-200 bg-cream-50 pl-10 pr-4 text-xs font-semibold text-charcoal-900 transition-colors placeholder:text-charcoal-400 focus:border-charcoal-900 focus:bg-white focus:outline-none"
+          />
+          {searchQuery && (
+            <button
+              type="button"
+              onClick={() => setSearchQuery('')}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-charcoal-400 hover:text-charcoal-700 cursor-pointer"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          )}
+        </div>
+
+        {/* Action Controls on the Right */}
+        <div className="flex flex-wrap items-center gap-2 sm:justify-end">
+          {/* Toggle Filter Button */}
+          <button
+            type="button"
+            onClick={() => setIsFilterVisible((prev) => !prev)}
+            aria-controls="product-filters"
+            aria-expanded={isFilterVisible}
+            className={`inline-flex h-10 items-center justify-center gap-2 border px-3.5 text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer ${
+              activeFilterCount > 0
+                ? 'border-primary-600 bg-primary-600 text-white shadow-xs'
+                : isFilterVisible
+                ? 'border-charcoal-900 bg-charcoal-900 text-white'
+                : 'border-charcoal-900 text-charcoal-900 hover:bg-charcoal-900 hover:text-white'
+            }`}
+          >
+            <SlidersHorizontal className="h-3.5 w-3.5" />
+            <span>FILTER {activeFilterCount > 0 ? `(${activeFilterCount})` : ''}</span>
+          </button>
+
+          {/* Quick Reset Button (shows when filters active) */}
+          {activeFilterCount > 0 && (
             <button
               type="button"
               onClick={handleResetFilters}
-              title="Reset all filters"
-              className="text-xs text-primary-600 hover:text-primary-800 flex items-center space-x-1 cursor-pointer"
+              className="inline-flex h-10 items-center justify-center border border-cream-300 px-3 text-xs font-bold uppercase tracking-wider text-charcoal-600 transition-colors hover:border-charcoal-900 hover:text-charcoal-900 cursor-pointer"
             >
-              <RotateCcw className="w-3 h-3" />
+              <RotateCcw className="w-3.5 h-3.5 mr-1" />
               <span>Reset</span>
             </button>
-          </div>
+          )}
 
-          {/* 1. Price Filter (Maximum IDR) */}
-          <div className="space-y-2">
-            <div className="flex justify-between items-center text-xs font-bold uppercase tracking-wider text-charcoal-800">
-              <span>MAXIMUM PRICE</span>
-              <span className="text-primary-700 font-extrabold">{formatCurrency(maxPrice)}</span>
-            </div>
-            <input
-              type="range"
-              min={2000000}
-              max={30000000}
-              step={500000}
-              value={maxPrice}
-              onChange={(e) => setMaxPrice(Number(e.target.value))}
-              className="w-full accent-primary-600 cursor-pointer"
-            />
-            <div className="flex justify-between text-[10px] text-charcoal-400 font-semibold">
-              <span>Rp 2M</span>
-              <span>Rp 15M</span>
-              <span>Rp 30M+</span>
-            </div>
-          </div>
-
-          {/* 2. Acquisition Mode (Rental vs Purchase) */}
-          <div className="space-y-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-charcoal-800 block">
-              SERVICE TYPE
-            </span>
-            <div className="grid grid-cols-3 gap-1.5 text-xs font-semibold">
-              {(['all', 'rental', 'purchase'] as const).map((type) => (
-                <button
-                  key={type}
-                  type="button"
-                  onClick={() => setAcquisitionType(type)}
-                  className={`py-1.5 px-2 text-center capitalize transition-all cursor-pointer ${
-                    acquisitionType === type
-                      ? 'bg-charcoal-900 text-white font-bold'
-                      : 'bg-white border border-cream-300 text-charcoal-600 hover:bg-cream-100'
-                  }`}
-                >
-                  {type === 'all' ? 'All' : type}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* 3. Occasion Accordion */}
-          <div className="space-y-2 border-t border-cream-200 pt-4">
-            <button
-              type="button"
-              onClick={() => setIsOccasionOpen(!isOccasionOpen)}
-              className="w-full flex items-center justify-between text-xs font-bold uppercase tracking-wider text-charcoal-800 cursor-pointer"
+          {/* Sort By Dropdown */}
+          <div className="flex h-10 items-center space-x-2 border border-cream-200 bg-cream-50 px-3">
+            <label
+              htmlFor="sort-by-select"
+              className="text-[10px] font-bold uppercase tracking-wider text-charcoal-500 cursor-pointer"
             >
-              <span>OCCASION / EVENT</span>
-              <ChevronDown
-                className={`w-4 h-4 transition-transform duration-200 ${
-                  isOccasionOpen ? 'rotate-180' : ''
-                }`}
-              />
-            </button>
-
-            {isOccasionOpen && (
-              <div className="space-y-1.5 pt-1">
-                <button
-                  type="button"
-                  onClick={() => setSelectedOccasion('all')}
-                  className={`w-full text-left text-xs py-1.5 px-2 rounded-none transition-colors cursor-pointer ${
-                    selectedOccasion === 'all'
-                      ? 'bg-charcoal-900 text-white font-bold'
-                      : 'text-charcoal-600 hover:bg-white'
-                  }`}
-                >
-                  All Occasions
-                </button>
-                {occasions.map((occ) => (
-                  <button
-                    key={occ.value}
-                    type="button"
-                    onClick={() => setSelectedOccasion(occ.value)}
-                    className={`w-full text-left text-xs py-1.5 px-2 rounded-none transition-colors cursor-pointer ${
-                      selectedOccasion === occ.value
-                        ? 'bg-charcoal-900 text-white font-bold'
-                        : 'text-charcoal-600 hover:bg-white'
-                    }`}
-                  >
-                    {occ.label}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* 4. Silhouette Accordion */}
-          <div className="space-y-2 border-t border-cream-200 pt-4">
-            <button
-              type="button"
-              onClick={() => setIsSilhouetteOpen(!isSilhouetteOpen)}
-              className="w-full flex items-center justify-between text-xs font-bold uppercase tracking-wider text-charcoal-800 cursor-pointer"
+              SORT BY:
+            </label>
+            <select
+              id="sort-by-select"
+              aria-label="Sort product options"
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              className="bg-transparent pr-2 text-xs font-bold uppercase text-charcoal-800 focus:outline-none cursor-pointer"
             >
-              <span>DRESS SILHOUETTE</span>
-              <ChevronDown
-                className={`w-4 h-4 transition-transform duration-200 ${
-                  isSilhouetteOpen ? 'rotate-180' : ''
-                }`}
-              />
-            </button>
-
-            {isSilhouetteOpen && (
-              <div className="space-y-1.5 pt-1">
-                <button
-                  type="button"
-                  onClick={() => setSelectedSilhouette('all')}
-                  className={`w-full text-left text-xs py-1.5 px-2 rounded-none transition-colors cursor-pointer ${
-                    selectedSilhouette === 'all'
-                      ? 'bg-charcoal-900 text-white font-bold'
-                      : 'text-charcoal-600 hover:bg-white'
-                  }`}
-                >
-                  All Silhouettes
-                </button>
-                {silhouettes.map((sil) => (
-                  <button
-                    key={sil.value}
-                    type="button"
-                    onClick={() => setSelectedSilhouette(sil.value)}
-                    className={`w-full text-left text-xs py-1.5 px-2 rounded-none transition-colors cursor-pointer ${
-                      selectedSilhouette === sil.value
-                        ? 'bg-charcoal-900 text-white font-bold'
-                        : 'text-charcoal-600 hover:bg-white'
-                    }`}
-                  >
-                    {sil.label}
-                  </button>
-                ))}
-              </div>
-            )}
+              <option value="newest">NEWEST</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+            </select>
           </div>
+        </div>
+      </div>
 
-          {/* 5. Size Filter */}
-          <div className="space-y-2 border-t border-cream-200 pt-4">
-            <span className="text-xs font-bold uppercase tracking-wider text-charcoal-800 block">
-              SIZE AVAILABILITY
-            </span>
-            <div className="flex flex-wrap gap-1.5">
+      {/* ==================================================================== */}
+      {/* MAIN LAYOUT: CONDITIONAL SIDEBAR FILTER + RESPONSIVE PRODUCT GRID   */}
+      {/* ==================================================================== */}
+      <div
+        className={`grid grid-cols-1 items-start gap-8 transition-all duration-300 ${
+          isFilterVisible ? 'lg:grid-cols-[280px_minmax(0,1fr)]' : 'lg:grid-cols-1'
+        }`}
+      >
+        {/* ========================================================= */}
+        {/* LEFT SIDEBAR: FILTER CATALOG (Toggleable)                 */}
+        {/* ========================================================= */}
+        {isFilterVisible && (
+          <aside
+            id="product-filters"
+            className="bg-cream-50/70 border border-cream-200 p-5 space-y-6 shadow-xs sticky top-28"
+          >
+            <div className="flex items-center justify-between border-b border-cream-300 pb-3">
+              <div className="flex items-center space-x-2">
+                <SlidersHorizontal className="w-4 h-4 text-charcoal-700" />
+                <h3 className="font-display text-sm font-bold tracking-wider uppercase text-charcoal-900">
+                  FILTER CATALOG
+                </h3>
+              </div>
               <button
                 type="button"
-                onClick={() => setSelectedSize('all')}
-                className={`py-1 px-2.5 text-xs font-semibold cursor-pointer ${
-                  selectedSize === 'all'
-                    ? 'bg-charcoal-900 text-white'
-                    : 'bg-white border border-cream-300 text-charcoal-700 hover:bg-cream-100'
-                }`}
+                onClick={handleResetFilters}
+                title="Reset all filters"
+                className="text-xs text-primary-600 hover:text-primary-800 flex items-center space-x-1 cursor-pointer"
               >
-                All
+                <RotateCcw className="w-3 h-3" />
+                <span>Reset</span>
               </button>
-              {sizes.map((s) => (
+            </div>
+
+            {/* 1. Price Filter (Maximum IDR) */}
+            <div className="space-y-2">
+              <div className="flex justify-between items-center text-xs font-bold uppercase tracking-wider text-charcoal-800">
+                <span>MAXIMUM PRICE</span>
+                <span className="text-primary-700 font-extrabold">{formatCurrency(maxPrice)}</span>
+              </div>
+              <input
+                type="range"
+                min={2000000}
+                max={30000000}
+                step={500000}
+                value={maxPrice}
+                onChange={(e) => setMaxPrice(Number(e.target.value))}
+                className="w-full accent-primary-600 cursor-pointer"
+              />
+              <div className="flex justify-between text-[10px] text-charcoal-400 font-semibold">
+                <span>Rp 2M</span>
+                <span>Rp 15M</span>
+                <span>Rp 30M+</span>
+              </div>
+            </div>
+
+            {/* 2. Service Acquisition Mode */}
+            <div className="space-y-2">
+              <span className="text-xs font-bold uppercase tracking-wider text-charcoal-800 block">
+                SERVICE TYPE
+              </span>
+              <div className="grid grid-cols-3 gap-1.5 text-xs font-semibold">
+                {(['all', 'rental', 'purchase'] as const).map((type) => (
+                  <button
+                    key={type}
+                    type="button"
+                    onClick={() => setAcquisitionType(type)}
+                    className={`py-1.5 px-2 text-center capitalize transition-all cursor-pointer ${
+                      acquisitionType === type
+                        ? 'bg-charcoal-900 text-white font-bold'
+                        : 'bg-white border border-cream-300 text-charcoal-600 hover:bg-cream-100'
+                    }`}
+                  >
+                    {type === 'all' ? 'All' : type}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* 3. Occasion Accordion */}
+            <div className="space-y-2 border-t border-cream-200 pt-4">
+              <button
+                type="button"
+                onClick={() => setIsOccasionOpen(!isOccasionOpen)}
+                className="w-full flex items-center justify-between text-xs font-bold uppercase tracking-wider text-charcoal-800 cursor-pointer"
+              >
+                <span>OCCASION / EVENT</span>
+                <ChevronDown
+                  className={`w-4 h-4 transition-transform duration-200 ${
+                    isOccasionOpen ? 'rotate-180' : ''
+                  }`}
+                />
+              </button>
+
+              {isOccasionOpen && (
+                <div className="space-y-1.5 pt-1">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedOccasion('all')}
+                    className={`w-full text-left text-xs py-1.5 px-2 rounded-none transition-colors cursor-pointer ${
+                      selectedOccasion === 'all'
+                        ? 'bg-charcoal-900 text-white font-bold'
+                        : 'text-charcoal-600 hover:bg-white'
+                    }`}
+                  >
+                    All Occasions
+                  </button>
+                  {occasions.map((occ) => (
+                    <button
+                      key={occ.value}
+                      type="button"
+                      onClick={() => setSelectedOccasion(occ.value)}
+                      className={`w-full text-left text-xs py-1.5 px-2 rounded-none transition-colors cursor-pointer ${
+                        selectedOccasion === occ.value
+                          ? 'bg-charcoal-900 text-white font-bold'
+                          : 'text-charcoal-600 hover:bg-white'
+                      }`}
+                    >
+                      {occ.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* 4. Silhouette Accordion */}
+            <div className="space-y-2 border-t border-cream-200 pt-4">
+              <button
+                type="button"
+                onClick={() => setIsSilhouetteOpen(!isSilhouetteOpen)}
+                className="w-full flex items-center justify-between text-xs font-bold uppercase tracking-wider text-charcoal-800 cursor-pointer"
+              >
+                <span>DRESS SILHOUETTE</span>
+                <ChevronDown
+                  className={`w-4 h-4 transition-transform duration-200 ${
+                    isSilhouetteOpen ? 'rotate-180' : ''
+                  }`}
+                />
+              </button>
+
+              {isSilhouetteOpen && (
+                <div className="space-y-1.5 pt-1">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedSilhouette('all')}
+                    className={`w-full text-left text-xs py-1.5 px-2 rounded-none transition-colors cursor-pointer ${
+                      selectedSilhouette === 'all'
+                        ? 'bg-charcoal-900 text-white font-bold'
+                        : 'text-charcoal-600 hover:bg-white'
+                    }`}
+                  >
+                    All Silhouettes
+                  </button>
+                  {silhouettes.map((sil) => (
+                    <button
+                      key={sil.value}
+                      type="button"
+                      onClick={() => setSelectedSilhouette(sil.value)}
+                      className={`w-full text-left text-xs py-1.5 px-2 rounded-none transition-colors cursor-pointer ${
+                        selectedSilhouette === sil.value
+                          ? 'bg-charcoal-900 text-white font-bold'
+                          : 'text-charcoal-600 hover:bg-white'
+                      }`}
+                    >
+                      {sil.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* 5. Size Filter */}
+            <div className="space-y-2 border-t border-cream-200 pt-4">
+              <span className="text-xs font-bold uppercase tracking-wider text-charcoal-800 block">
+                SIZE AVAILABILITY
+              </span>
+              <div className="flex flex-wrap gap-1.5">
                 <button
-                  key={s}
                   type="button"
-                  onClick={() => setSelectedSize(s)}
+                  onClick={() => setSelectedSize('all')}
                   className={`py-1 px-2.5 text-xs font-semibold cursor-pointer ${
-                    selectedSize === s
+                    selectedSize === 'all'
                       ? 'bg-charcoal-900 text-white'
                       : 'bg-white border border-cream-300 text-charcoal-700 hover:bg-cream-100'
                   }`}
                 >
-                  {s}
+                  All
                 </button>
-              ))}
+                {sizes.map((s) => (
+                  <button
+                    key={s}
+                    type="button"
+                    onClick={() => setSelectedSize(s)}
+                    className={`py-1 px-2.5 text-xs font-semibold cursor-pointer ${
+                      selectedSize === s
+                        ? 'bg-charcoal-900 text-white'
+                        : 'bg-white border border-cream-300 text-charcoal-700 hover:bg-cream-100'
+                    }`}
+                  >
+                    {s}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
-        </aside>
+          </aside>
+        )}
 
         {/* ========================================================= */}
-        {/* RIGHT CATALOG: PRODUCT CARDS GRID (Matches Screenshot 2) */}
+        {/* RIGHT CATALOG: PRODUCT CARDS GRID                        */}
         {/* ========================================================= */}
-        <main className="lg:col-span-3 space-y-4">
+        <main className="space-y-4">
           {/* Header Status Bar */}
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-cream-200 pb-3">
             <div className="flex items-center space-x-2">
@@ -335,11 +474,11 @@ export const CatalogSection: React.FC<CatalogSectionProps> = ({
           {filteredProducts.length === 0 ? (
             <div className="text-center py-20 bg-cream-50/50 border border-cream-200 space-y-3">
               <p className="font-display text-lg font-bold text-charcoal-800">
-                No gowns found matching your filters.
+                No gowns found matching your search and filter criteria.
               </p>
               <p className="text-xs text-charcoal-500 max-w-sm mx-auto">
-                Try loosening your price range or clearing specific silhouette filters to explore
-                more atelier options.
+                Try loosening your search keywords or resetting specific filters to explore more
+                atelier designs.
               </p>
               <button
                 type="button"
@@ -351,7 +490,13 @@ export const CatalogSection: React.FC<CatalogSectionProps> = ({
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4">
+            <div
+              className={`grid grid-cols-2 gap-3.5 sm:gap-4 ${
+                isFilterVisible
+                  ? 'sm:grid-cols-2 lg:grid-cols-3'
+                  : 'sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4'
+              }`}
+            >
               {filteredProducts.map((product) => {
                 const discount =
                   product.original_rental_price &&
@@ -404,7 +549,7 @@ export const CatalogSection: React.FC<CatalogSectionProps> = ({
                         </h4>
                       </div>
 
-                      {/* Service Badges (Matches screenshot 2: Garansi Segar, Free Card) */}
+                      {/* Service Badges */}
                       <div className="flex flex-wrap gap-1">
                         <span className="inline-flex items-center text-[9px] font-semibold text-primary-700 bg-primary-50 px-1.5 py-0.5 border border-primary-200">
                           <ShieldCheck className="w-2.5 h-2.5 mr-0.5" />
@@ -415,7 +560,7 @@ export const CatalogSection: React.FC<CatalogSectionProps> = ({
                         </span>
                       </div>
 
-                      {/* Pricing & Add to Cart Action (Matches screenshot 2 layout) */}
+                      {/* Pricing & Add to Cart Action */}
                       <div className="pt-2 border-t border-cream-200 flex items-center justify-between">
                         <div className="space-y-0.5">
                           {discount && (
@@ -438,7 +583,7 @@ export const CatalogSection: React.FC<CatalogSectionProps> = ({
                           </span>
                         </div>
 
-                        {/* Round Add Button (Matches pink '+' circle from screenshot 2) */}
+                        {/* Round Add Button */}
                         <button
                           type="button"
                           onClick={() => handleAddToCart(product, 'rental')}
@@ -467,4 +612,3 @@ export const CatalogSection: React.FC<CatalogSectionProps> = ({
     </section>
   )
 }
-

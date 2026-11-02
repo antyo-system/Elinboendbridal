@@ -22,10 +22,6 @@ CREATE TABLE IF NOT EXISTS products (
     purchase_price NUMERIC(14, 2) NOT NULL DEFAULT 0,
     security_deposit NUMERIC(14, 2) NOT NULL DEFAULT 0, -- Refundable deposit
     
-    -- Flash Trunk Show
-    is_flash_sale BOOLEAN DEFAULT FALSE,
-    flash_sale_discount_percent INT DEFAULT 0,
-    flash_sale_stock INT DEFAULT 1,
     badge_label VARCHAR(60), -- e.g. 'Best Seller', 'Haute Couture'
     
     -- Flexible Sizing & Photos

@@ -31,39 +31,20 @@ Comprehensive specification of all features and interface modules for the Elinbo
 
 ## 2. Home & Marketplace Storefront (`/`)
 
-### 2.1 Hero Banner Carousel
-- High-resolution editorial slider showcasing bridal and party dress collections.
-- Slide contents:
-  1. *The Royal Ethereal Collection* - Luxury French lace ballgowns for wedding ceremonies.
-  2. *Midnight Glamour Evening Gowns* - Draped satin and velvet party dresses.
-  3. *Bespoke Made-to-Measure* - Custom tailored bridal gowns crafted to your exact proportions.
-- Dynamic CTA buttons: *"Explore Wedding Gowns"* & *"Book a Private Fitting"*.
-- Dot indicators with auto-play pause on hover.
+### 2.1 Fixed Hero Hook Section
+- High-resolution editorial photography showcasing the signature bridal collection.
+- Core Headline & Subtitle: "Exquisite Wedding Gowns & Evening Dresses".
+- Direct action buttons: *"Explore Wedding Gowns"* & *"Chat Stylist"*.
 
-### 2.2 Category Switcher (Dual Dimension)
-- Toggle tabs:
-  - **By Dress Silhouette**:
-    - *Ballgown*: Dramatic flared skirt, fitted corset bodice.
-    - *A-Line Princess*: Flattering, universally elegant for ceremonies.
-    - *Mermaid & Trumpet*: Form-fitting couture highlighting curves.
-    - *Modern Sheath / Column*: Minimalist, lightweight, ideal for intimate weddings.
-  - **By Occasion**:
-    - *Holy Matrimony / Akad*: Pure white, elegant sleeves, cathedral train options.
-    - *Wedding Reception*: Dazzling sparkle, crystal beading, grand entrance style.
-    - *Evening Party / Gala*: Vibrant jewel tones, sophisticated slits, luxury satin.
-    - *Bridesmaid & Family*: Harmonious pastel palettes, comfortable premium chiffon.
-- Horizontal scrollable card carousel with thumbnail imagery and instant category filtering.
+### 2.2 Curated Collection Cards
+- Single, recommended dimension categorizing gowns by primary celebration role:
+  - *Holy Matrimony & Ceremony*: Pure white, elegant sleeves, cathedral train options.
+  - *Wedding Reception*: Dazzling sparkle, crystal beading, grand entrance style.
+  - *Evening Party & Gala*: Vibrant jewel tones, sophisticated slits, luxury satin.
+  - *Bridesmaids & Family*: Harmonious pastel palettes, comfortable premium chiffon.
+- Streamlined 4-card grid with instant filtering, zero tab-switching friction.
 
-### 2.3 Flash Trunk Show / Limited Rental Specials
-- Countdown Timer: Displays hours, minutes, and seconds remaining (`01 : 48 : 48`).
-- Horizontal scrolling cards featuring:
-  - Discount badge (e.g. `-25%`, `-30%`).
-  - Dress photo with quick view.
-  - Dress title and collection tag.
-  - Special rental price (`Rp 3.500.000` was `Rp 4.700.000`).
-  - Availability pill: `ONLY 1 SLOT LEFT FOR THIS DATE`.
-
-### 2.4 Marketplace Filter & Product Grid
+### 2.3 Marketplace Filter & Product Grid
 - **Left Sidebar ("Filter Catalog")**:
   - **Price Range Slider**: Maximum price filter (from Rp 1.000.000 up to Rp 50.000.000+).
   - **Acquisition Type**: All, Available for Rent, Available for Purchase.
