@@ -13,7 +13,7 @@ import {
 import { PRODUCTS_DATA } from '../../data/mockData'
 import { formatCurrency } from '../../utils/formatCurrency'
 import { useCartStore } from '../../store/useCartStore'
-import { Product, OccasionType, SilhouetteType } from '../../types'
+import { Product, OccasionType } from '../../types'
 
 interface CatalogSectionProps {
   selectedCategory: string
@@ -34,14 +34,12 @@ export const CatalogSection: React.FC<CatalogSectionProps> = ({
   // Detailed Filter States
   const [maxPrice, setMaxPrice] = useState<number>(30000000)
   const [selectedOccasion, setSelectedOccasion] = useState<string>('all')
-  const [selectedSilhouette, setSelectedSilhouette] = useState<string>('all')
   const [acquisitionType, setAcquisitionType] = useState<'all' | 'rental' | 'purchase'>('all')
   const [selectedSize, setSelectedSize] = useState<string>('all')
   const [addedProductId, setAddedProductId] = useState<string | null>(null)
 
-  // Accordion collapse toggles
+  // Accordion collapse toggle
   const [isOccasionOpen, setIsOccasionOpen] = useState(true)
-  const [isSilhouetteOpen, setIsSilhouetteOpen] = useState(true)
 
   const occasions: { label: string; value: OccasionType }[] = [
     { label: 'Holy Matrimony / Akad', value: 'Holy Matrimony' },
@@ -49,14 +47,6 @@ export const CatalogSection: React.FC<CatalogSectionProps> = ({
     { label: 'Evening Gala & Party', value: 'Evening Gala' },
     { label: 'Bridesmaid & Family', value: 'Bridesmaid' },
     { label: 'Engagement / Sangjit', value: 'Engagement / Sangjit' },
-  ]
-
-  const silhouettes: { label: string; value: SilhouetteType }[] = [
-    { label: 'Grand Ballgown', value: 'Ballgown' },
-    { label: 'A-Line Princess', value: 'A-Line' },
-    { label: 'Mermaid Couture', value: 'Mermaid' },
-    { label: 'Modern Sheath / Column', value: 'Sheath / Column' },
-    { label: 'Modern Kebaya Pengantin', value: 'Modern Kebaya' },
   ]
 
   const sizes = ['XS', 'S', 'M', 'L', 'XL', 'Custom']
@@ -68,7 +58,6 @@ export const CatalogSection: React.FC<CatalogSectionProps> = ({
     if (selectedCategory !== 'all') count++
     if (maxPrice < 30000000) count++
     if (selectedOccasion !== 'all') count++
-    if (selectedSilhouette !== 'all') count++
     if (acquisitionType !== 'all') count++
     if (selectedSize !== 'all') count++
     return count
@@ -77,7 +66,6 @@ export const CatalogSection: React.FC<CatalogSectionProps> = ({
     selectedCategory,
     maxPrice,
     selectedOccasion,
-    selectedSilhouette,
     acquisitionType,
     selectedSize,
   ])
@@ -106,14 +94,11 @@ export const CatalogSection: React.FC<CatalogSectionProps> = ({
       // 4. Occasion Filter
       if (selectedOccasion !== 'all' && product.occasion !== selectedOccasion) return false
 
-      // 5. Silhouette Filter
-      if (selectedSilhouette !== 'all' && product.silhouette !== selectedSilhouette) return false
-
-      // 6. Acquisition Filter
+      // 5. Acquisition Filter
       if (acquisitionType === 'rental' && !product.is_rental_available) return false
       if (acquisitionType === 'purchase' && !product.is_purchase_available) return false
 
-      // 7. Size Filter
+      // 6. Size Filter
       if (selectedSize !== 'all' && !product.sizes_available.includes(selectedSize)) return false
 
       return true
@@ -131,7 +116,6 @@ export const CatalogSection: React.FC<CatalogSectionProps> = ({
     selectedCategory,
     maxPrice,
     selectedOccasion,
-    selectedSilhouette,
     acquisitionType,
     selectedSize,
     sortBy,
@@ -153,7 +137,6 @@ export const CatalogSection: React.FC<CatalogSectionProps> = ({
     setSearchQuery('')
     setMaxPrice(30000000)
     setSelectedOccasion('all')
-    setSelectedSilhouette('all')
     setAcquisitionType('all')
     setSelectedSize('all')
     setSelectedCategory('all')
@@ -369,53 +352,7 @@ export const CatalogSection: React.FC<CatalogSectionProps> = ({
               )}
             </div>
 
-            {/* 4. Silhouette Accordion */}
-            <div className="space-y-2 border-t border-cream-200 pt-4">
-              <button
-                type="button"
-                onClick={() => setIsSilhouetteOpen(!isSilhouetteOpen)}
-                className="w-full flex items-center justify-between text-xs font-bold uppercase tracking-wider text-charcoal-800 cursor-pointer"
-              >
-                <span>DRESS SILHOUETTE</span>
-                <ChevronDown
-                  className={`w-4 h-4 transition-transform duration-200 ${
-                    isSilhouetteOpen ? 'rotate-180' : ''
-                  }`}
-                />
-              </button>
-
-              {isSilhouetteOpen && (
-                <div className="space-y-1.5 pt-1">
-                  <button
-                    type="button"
-                    onClick={() => setSelectedSilhouette('all')}
-                    className={`w-full text-left text-xs py-1.5 px-2 rounded-none transition-colors cursor-pointer ${
-                      selectedSilhouette === 'all'
-                        ? 'bg-charcoal-900 text-white font-bold'
-                        : 'text-charcoal-600 hover:bg-white'
-                    }`}
-                  >
-                    All Silhouettes
-                  </button>
-                  {silhouettes.map((sil) => (
-                    <button
-                      key={sil.value}
-                      type="button"
-                      onClick={() => setSelectedSilhouette(sil.value)}
-                      className={`w-full text-left text-xs py-1.5 px-2 rounded-none transition-colors cursor-pointer ${
-                        selectedSilhouette === sil.value
-                          ? 'bg-charcoal-900 text-white font-bold'
-                          : 'text-charcoal-600 hover:bg-white'
-                      }`}
-                    >
-                      {sil.label}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* 5. Size Filter */}
+            {/* 4. Size Filter */}
             <div className="space-y-2 border-t border-cream-200 pt-4">
               <span className="text-xs font-bold uppercase tracking-wider text-charcoal-800 block">
                 SIZE AVAILABILITY
