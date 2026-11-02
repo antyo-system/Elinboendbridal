@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Search, ShoppingBag, Calendar, Sparkles } from 'lucide-react'
+import { Search, ShoppingBag, Calendar } from 'lucide-react'
 import { useCartStore } from '../../store/useCartStore'
 
 export const Header: React.FC = () => {
@@ -16,12 +16,6 @@ export const Header: React.FC = () => {
 
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-cream-200">
-      {/* Announcement Bar */}
-      <div className="bg-charcoal-900 text-cream-100 py-1.5 px-4 text-center text-xs tracking-wider uppercase font-medium flex items-center justify-center space-x-2">
-        <Sparkles className="w-3.5 h-3.5 text-gold-400 animate-pulse" />
-        <span>Private Fitting Consultations Now Open for 2026/2027 Brides • Complimentary Veil Styling</span>
-      </div>
-
       {/* Main Navigation Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         {/* Left Links */}

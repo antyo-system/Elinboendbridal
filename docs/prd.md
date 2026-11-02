@@ -30,13 +30,13 @@ Unlike pure WhatsApp-based flower ordering, Elinboend Bridal introduces an integ
 ### 4.1 Home & Marketplace Page (`/` and `/products`)
 Follows the proven high-converting layout from the reference project:
 - **Top Navigation Bar**:
-  - Links: `HOME`, `ARTICLES`, `ABOUT`.
+  - Clean minimalist header: `HOME`, `ARTICLES`, `ABOUT`.
   - Centered brand logo: **Elinboend Bridal**.
   - Action icons: Search modal, Account/Fitting lookup, Shopping Bag with real-time count badge.
-- **Hero Carousel Banner**:
-  - High-impact editorial photography highlighting "The Haute Bridal 2026 Collection".
-  - Clear Call-to-Action: *"Explore Wedding Gowns"* & *"Book a Fitting"*.
-  - Carousel indicators and smooth transitions.
+- **Fixed Hero Hook Section**:
+  - High-impact editorial photography highlighting "The Haute Bridal Collection".
+  - Clear, direct Call-to-Action: *"Explore Wedding Gowns"* & *"Chat Stylist"*.
+  - Clean, static luxury hook without slider overengineering.
 - **Curated Category Switcher**:
   - Tab Switcher: **"By Dress Silhouette"** (Ballgown, A-Line, Mermaid, Sheath/Column) vs. **"By Occasion"** (Wedding Holy Matrimony/Resepsi, Evening Party, Bridesmaid, Engagement/Sangjit).
   - Horizontal scrollable visual category cards with high-res thumbnails and brief descriptions.
