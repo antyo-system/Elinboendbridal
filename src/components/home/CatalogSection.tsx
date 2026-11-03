@@ -6,7 +6,6 @@ import {
   Check,
   ChevronDown,
   Search,
-  ShieldCheck,
   RotateCcw,
   X,
 } from 'lucide-react'
@@ -495,25 +494,9 @@ export const CatalogSection: React.FC<CatalogSectionProps> = ({
                         </Link>
                       </div>
 
-                      {/* Service Badges */}
-                      <div className="flex flex-wrap gap-1">
-                        <span className="inline-flex items-center text-[9px] font-semibold text-primary-700 bg-primary-50 px-1.5 py-0.5 border border-primary-200">
-                          <ShieldCheck className="w-2.5 h-2.5 mr-0.5" />
-                          Free Fitting & Alteration
-                        </span>
-                        <span className="inline-flex items-center text-[9px] font-semibold text-charcoal-600 bg-cream-100 px-1.5 py-0.5 border border-cream-200">
-                          Refundable Deposit
-                        </span>
-                      </div>
-
                       {/* Pricing & Add to Cart Action */}
-                      <div className="pt-2 border-t border-cream-200 flex items-center justify-between">
-                        <div className="space-y-0.5">
-                          {discount && (
-                            <span className="text-[9px] font-bold text-primary-600 uppercase tracking-wider block">
-                              SAVE {discount}%
-                            </span>
-                          )}
+                      <div className="pt-2 border-t border-cream-100 flex items-center justify-between">
+                        <div>
                           <div className="flex items-baseline space-x-1.5">
                             <span className="text-xs sm:text-sm font-extrabold text-charcoal-900">
                               {formatCurrency(product.rental_price)}
@@ -524,8 +507,8 @@ export const CatalogSection: React.FC<CatalogSectionProps> = ({
                               </span>
                             )}
                           </div>
-                          <span className="text-[9px] text-charcoal-500 font-medium">
-                            / 3 Days Rental
+                          <span className="text-[10px] text-charcoal-400 font-medium">
+                            / 3 days rental
                           </span>
                         </div>
 
