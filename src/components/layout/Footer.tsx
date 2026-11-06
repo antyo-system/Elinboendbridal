@@ -119,9 +119,9 @@ export const Footer: React.FC = () => {
         <div className="pt-8 border-t border-charcoal-800 flex flex-col sm:flex-row justify-between items-center text-xs text-charcoal-500 space-y-4 sm:space-y-0">
           <p>© {new Date().getFullYear()} Elinboend Bridal Atelier. All rights reserved.</p>
           <div className="flex items-center space-x-6">
-            <span>Midtrans Payment Gateway Secured</span>
+            <span>Private Atelier Fitting by Appointment</span>
             <span>•</span>
-            <span>QRIS & Virtual Accounts Supported</span>
+            <span>Direct WhatsApp Concierge Service</span>
           </div>
         </div>
       </div>

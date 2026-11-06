@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS products (
     purchase_price NUMERIC(14, 2) NOT NULL DEFAULT 0,
     security_deposit NUMERIC(14, 2) NOT NULL DEFAULT 0, -- Refundable deposit
     
-    badge_label VARCHAR(60), -- e.g. 'Best Seller', 'Haute Couture'
+    badge_label VARCHAR(60), -- e.g. 'Best Seller', 'Exclusive'
     
     -- Flexible Sizing & Photos
     sizes_available JSONB DEFAULT '["XS", "S", "M", "L", "Custom"]'::jsonb,
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS products (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- 2. Orders Table (With Integrated Midtrans State & JSONB Line Items)
+-- 2. Orders Table (WhatsApp Concierge Orders & JSONB Line Items)
 CREATE TABLE IF NOT EXISTS orders (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     order_number VARCHAR(50) NOT NULL UNIQUE, -- e.g. EB-20261102-0042
@@ -45,17 +45,11 @@ CREATE TABLE IF NOT EXISTS orders (
     -- Line Items (Direct JSONB: avoid overengineered join tables)
     items JSONB NOT NULL DEFAULT '[]'::jsonb,
     
-    -- Financials & Payment Mode
+    -- Financials (Full Payment via WhatsApp Concierge)
     subtotal NUMERIC(14, 2) NOT NULL DEFAULT 0,
     security_deposit_total NUMERIC(14, 2) NOT NULL DEFAULT 0,
     total_amount NUMERIC(14, 2) NOT NULL DEFAULT 0,
-    payment_mode VARCHAR(50) NOT NULL DEFAULT 'dp_50', -- 'dp_50' | 'full'
-    
-    -- Payment Gateway State
-    payment_status VARCHAR(50) NOT NULL DEFAULT 'pending', -- 'pending' | 'paid' | 'failed' | 'expired'
-    payment_method VARCHAR(50), -- 'qris' | 'bca_va' | 'mandiri_va' | 'credit_card'
-    midtrans_snap_token TEXT,
-    midtrans_transaction_id VARCHAR(100),
+    payment_status VARCHAR(50) NOT NULL DEFAULT 'pending', -- 'pending' | 'paid'
     
     -- Operational Status
     order_status VARCHAR(50) NOT NULL DEFAULT 'new', -- 'new' | 'confirmed' | 'fitting_scheduled' | 'completed' | 'cancelled'
@@ -86,7 +80,7 @@ CREATE TABLE IF NOT EXISTS articles (
     excerpt TEXT,
     content TEXT NOT NULL,
     cover_image TEXT NOT NULL,
-    author_name VARCHAR(100) DEFAULT 'Elinboend Bridal Atelier',
+    author_name VARCHAR(100) DEFAULT 'Elinboend Bridal',
     read_time VARCHAR(30) DEFAULT '4 min read',
     is_published BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()

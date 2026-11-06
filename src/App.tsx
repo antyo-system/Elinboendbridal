@@ -2,8 +2,8 @@ import React from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { Header } from './components/layout/Header'
 import { Footer } from './components/layout/Footer'
+import { WhatsAppFab } from './components/layout/WhatsAppFab'
 import { CartDrawer } from './components/cart/CartDrawer'
-import { PaymentModal } from './components/payment/PaymentModal'
 import { Home } from './pages/Home'
 import { Articles } from './pages/Articles'
 import { ArticleDetail } from './pages/ArticleDetail'
@@ -12,7 +12,7 @@ import { About } from './pages/About'
 
 export const App: React.FC = () => {
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col min-h-screen bg-white overflow-x-hidden">
       {/* Top Header */}
       <Header />
 
@@ -35,11 +35,10 @@ export const App: React.FC = () => {
       {/* Shopping Bag Slide-over Drawer */}
       <CartDrawer />
 
-      {/* Midtrans Payment Gateway Modal */}
-      <PaymentModal />
+      {/* Floating WhatsApp Concierge Button */}
+      <WhatsAppFab />
     </div>
   )
 }
 
 export default App
-

@@ -48,7 +48,7 @@ export const PRODUCTS_DATA: Product[] = [
     badge_label: 'Best Seller',
     images: [
       'https://images.unsplash.com/photo-1594552072238-b8a33785b261?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1549416878-b9ca35c2d47b?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80',
     ],
     description:
       'Handcrafted with delicate French Chantilly lace over sparkling organza, The Aurelia features an internal sweetheart corset and a cathedral train that floats down the aisle.',
@@ -157,7 +157,7 @@ export const PRODUCTS_DATA: Product[] = [
     is_purchase_available: true,
     badge_label: 'Trending',
     images: [
-      'https://images.unsplash.com/photo-1549416878-b9ca35c2d47b?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80',
     ],
     description:
       'Soft blush undertones overlaid with celestial star-dusted tulle and botanical 3D blossoms trickling down from bodice to hem.',
@@ -323,7 +323,7 @@ Your private fitting is an intimate milestone where sketches and silhouettes tra
 4. **Take Photos in Natural and Ambient Lighting**: See how the beading catches both daylight and evening room chandeliers.
     `,
     cover_image:
-      'https://images.unsplash.com/photo-1549416878-b9ca35c2d47b?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80',
     author: 'Elin Boend, Lead Designer',
     date: 'Sep 30, 2026',
     read_time: '4 min read',

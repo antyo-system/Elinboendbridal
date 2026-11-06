@@ -1,45 +1,58 @@
-# Elinboend Bridal Atelier
+# Elinboend Bridal
 
-> Luxury Haute Couture & Bridal Boutique Web Application specializing in **Wedding Gowns** and **Party Dresses** (Rental, Custom Tailoring, and Purchase), featuring an editorial marketplace catalog and integrated **Payment Gateway** (Midtrans Snap QRIS & Virtual Accounts).
+> **Exclusive Wedding Gowns & Party Dresses** — Bespoke Rental, Custom Tailoring & Direct WhatsApp Concierge (`+62 878-8011-1169`).
 
 ---
 
-## 🌟 Key Features
+## ✨ Key Features
 
-1. **Marketplace Discovery & Real-Time Filtering**:
-   - Filter wedding gowns and evening dresses by **Dress Silhouette** (*Ballgown, A-Line, Mermaid, Sheath, Modern Kebaya*), **Occasion** (*Holy Matrimony, Reception, Gala, Bridesmaid*), **Price Range**, and **Size**.
-   - Dual-tab category switcher (*By Silhouette* vs *By Occasion*).
-2. **Flash Trunk Show & Limited Rental Specials**:
-   - Live countdown timer with limited-availability slot badges.
-3. **Integrated Payment Gateway (Midtrans Snap)**:
-   - Supports **Down Payment (DP 50%)** and **Full Settlement**.
-   - Channels: **QRIS** (GoPay, ShopeePay, BCA Mobile, Dana), **Virtual Accounts** (BCA, Mandiri, BRI, BNI), and **Credit Cards**.
-   - Refundable security deposit (*uang jaminan*) handling.
-4. **Private Atelier Fitting Booking**:
-   - Schedule 1-on-1 private fitting sessions in the Bintaro showroom with personal bridal stylists.
-5. **The Bridal Journal (Articles)**:
-   - Editorial guides covering gown silhouettes, rental vs purchase budget allocation, and fitting etiquette.
-6. **Atelier Heritage & FAQ**:
-   - Showroom location, directions, craftsmanship philosophy, and rental policies.
+1. **Marketplace-Style Gown Discovery**:
+   - Curated collection cards by occasion (*Holy Matrimony / Akad*, *Wedding Reception*, *Evening Party & Gala*, *Bridesmaids & Family*).
+   - Real-time client-side filtering by **Service Type** (3-Day Rental vs Custom Purchase), **Price Range**, and **Size Availability** (`XS` to `Custom`).
+   - Instant search bar and sorting dropdown.
+2. **Modern Fashion Editorial Product Detail (`/products/:id`)**:
+   - Segmented pill selector between **3-Day Rental** (with refundable security deposit info) and **Custom Purchase**.
+   - Interactive size chart & collapsible detail accordions.
+   - Direct **`Add to Bag`** and **`Order via WhatsApp`** actions.
+3. **Bridal Bag & Direct WhatsApp Checkout**:
+   - Slide-over shopping bag calculating Gown Subtotal + Refundable Security Deposit = Total Full Payment.
+   - One-click **Order via WhatsApp** sending formatted order summary directly to **`+62 878-8011-1169`**.
+4. **Bridal Journal (`/articles`) & Private Fitting Booking (`/about`)**:
+   - Editorial styling guides and direct private fitting appointment requests via WhatsApp.
 
 ---
 
 ## 📚 Project Documentation
 
-- [AGENTS.md](file:///d:/01_Projects/Elinboendbridal/AGENTS.md) — Project development rules, 5-step algorithm, and UI language policy.
-- [docs/prd.md](file:///d:/01_Projects/Elinboendbridal/docs/prd.md) — Product Requirements Document (PRD).
-- [docs/ROADMAP.md](file:///d:/01_Projects/Elinboendbridal/docs/ROADMAP.md) — Development milestones and phase tracking.
-- [docs/feature_list.md](file:///d:/01_Projects/Elinboendbridal/docs/feature_list.md) — Detailed specifications for every module.
-- [docs/tech-stack.md](file:///d:/01_Projects/Elinboendbridal/docs/tech-stack.md) — Architecture, tools, and libraries.
-- [docs/schema.sql](file:///d:/01_Projects/Elinboendbridal/docs/schema.sql) — Supabase PostgreSQL database schema with Row Level Security (RLS).
-- [docs/payment-gateway.md](file:///d:/01_Projects/Elinboendbridal/docs/payment-gateway.md) — Midtrans Snap payment gateway integration guide.
+- [CHECKLIST.md](file:///d:/01_Projects/Elinboendbridal/CHECKLIST.md) — Master Project & Live Production Checklist
+- [AGENTS.md](file:///d:/01_Projects/Elinboendbridal/AGENTS.md) — Project Rules & Development Philosophy
+- [docs/prd.md](file:///d:/01_Projects/Elinboendbridal/docs/prd.md) — Product Requirements Document
+- [docs/ROADMAP.md](file:///d:/01_Projects/Elinboendbridal/docs/ROADMAP.md) — Development Milestones & Phases
+- [docs/feature_list.md](file:///d:/01_Projects/Elinboendbridal/docs/feature_list.md) — Comprehensive Feature Specifications
+- [docs/tech-stack.md](file:///d:/01_Projects/Elinboendbridal/docs/tech-stack.md) — Architecture & Technology Stack
+- [docs/schema.sql](file:///d:/01_Projects/Elinboendbridal/docs/schema.sql) — PostgreSQL / Supabase Database Schema
 
 ---
 
-## 💻 Tech Stack
+## 🛠️ Tech Stack
 
-- **Frontend**: React 19 + TypeScript + Vite + Tailwind CSS v4
+- **Frontend**: React 19, TypeScript, Vite, TailwindCSS v4
 - **State Management**: TanStack React Query + Zustand
-- **Payment Gateway**: Midtrans Snap SDK (QRIS, VA, Cards)
-- **Database / Backend**: Supabase (PostgreSQL, Storage, Edge Functions)
-- **Icons & Motion**: Lucide React + Framer Motion
+- **Backend / Database**: Supabase (PostgreSQL, Auth, Storage, RLS)
+- **Order & Consultation**: Direct WhatsApp Concierge (`+62 878-8011-1169`)
+- **Icons**: Lucide React
+
+---
+
+## 🚀 Getting Started
+
+```powershell
+# 1. Install dependencies
+npm install
+
+# 2. Run development server
+npm run dev
+
+# 3. Build for production
+npm run build
+```

@@ -6,7 +6,6 @@ import {
   ShieldCheck,
   Ruler,
   Check,
-  CreditCard,
   ChevronRight,
   ChevronDown,
   MessageCircle,
@@ -20,7 +19,7 @@ export const ProductDetail: React.FC = () => {
   const navigate = useNavigate()
 
   const product = PRODUCTS_DATA.find((p) => p.slug === id || p.id === id)
-  const { addItem, setIsCartOpen, setIsPaymentOpen } = useCartStore()
+  const { addItem } = useCartStore()
 
   // Core Selection State
   const [acquisitionType, setAcquisitionType] = useState<'rental' | 'purchase'>('rental')
@@ -68,18 +67,6 @@ export const ProductDetail: React.FC = () => {
     })
     setIsAdded(true)
     setTimeout(() => setIsAdded(false), 2000)
-  }
-
-  const handleDirectCheckout = () => {
-    addItem({
-      product,
-      acquisition_type: acquisitionType,
-      size: selectedSize,
-      rental_days: acquisitionType === 'rental' ? 3 : undefined,
-      quantity: 1,
-    })
-    setIsCartOpen(false)
-    setIsPaymentOpen(true)
   }
 
   const handleWhatsAppConsultation = () => {
@@ -279,21 +266,21 @@ export const ProductDetail: React.FC = () => {
           </div>
 
           {/* 4. Primary & Secondary CTAs */}
-          <div className="space-y-2.5 pt-2">
-            <div className="grid grid-cols-2 gap-2.5">
+          <div className="pt-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
               <button
                 type="button"
                 onClick={handleAddToCart}
                 className={`h-12 flex items-center justify-center space-x-2 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
                   isAdded
                     ? 'bg-green-700 text-white'
-                    : 'bg-primary-600 hover:bg-primary-700 text-white'
+                    : 'bg-white border border-charcoal-900 hover:bg-cream-50 text-charcoal-900'
                 }`}
               >
                 {isAdded ? (
                   <>
                     <Check className="w-4 h-4" />
-                    <span>Added</span>
+                    <span>Added to Bag</span>
                   </>
                 ) : (
                   <>
@@ -305,22 +292,13 @@ export const ProductDetail: React.FC = () => {
 
               <button
                 type="button"
-                onClick={handleDirectCheckout}
-                className="h-12 bg-charcoal-900 hover:bg-charcoal-800 text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center space-x-2 transition-all cursor-pointer"
+                onClick={handleWhatsAppConsultation}
+                className="h-12 bg-charcoal-900 hover:bg-primary-700 text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center space-x-2 transition-all cursor-pointer"
               >
-                <CreditCard className="w-4 h-4 text-gold-400" />
-                <span>Book & Pay</span>
+                <MessageCircle className="w-4 h-4 text-gold-400" />
+                <span>Order via WhatsApp</span>
               </button>
             </div>
-
-            <button
-              type="button"
-              onClick={handleWhatsAppConsultation}
-              className="w-full h-10 border border-cream-300 bg-white hover:bg-cream-50 text-charcoal-700 text-xs font-semibold flex items-center justify-center space-x-1.5 transition-colors cursor-pointer"
-            >
-              <MessageCircle className="w-3.5 h-3.5 text-primary-600" />
-              <span>Ask Stylist or Book Fitting via WhatsApp</span>
-            </button>
           </div>
 
           {/* 5. Clean Collapsible Accordions (Replaces Cluttered Boxes) */}

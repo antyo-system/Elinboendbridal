@@ -75,6 +75,3 @@ export interface Article {
   date: string
   read_time: string
 }
-
-export type PaymentMethod = 'qris' | 'bca_va' | 'mandiri_va' | 'credit_card'
-export type PaymentMode = 'full' | 'dp_50'

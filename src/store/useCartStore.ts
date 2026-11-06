@@ -1,16 +1,12 @@
 import { create } from 'zustand'
-import { CartItem, Product, PaymentMode } from '../types'
+import { CartItem } from '../types'
 
 interface CartState {
   items: CartItem[]
   isCartOpen: boolean
-  isPaymentOpen: boolean
-  paymentMode: PaymentMode
 
   // Actions
   setIsCartOpen: (open: boolean) => void
-  setIsPaymentOpen: (open: boolean) => void
-  setPaymentMode: (mode: PaymentMode) => void
   addItem: (item: Omit<CartItem, 'id'>) => void
   removeItem: (id: string) => void
   clearCart: () => void
@@ -19,13 +15,10 @@ interface CartState {
   getSubtotal: () => number
   getSecurityDepositTotal: () => number
   getTotalAmount: () => number
-  getDownPaymentAmount: () => number
-  getBalanceAmount: () => number
 }
 
 export const useCartStore = create<CartState>((set, get) => ({
   items: [
-    // Pre-populate with one rental gown for immediate rich experience
     {
       id: 'initial-cart-item-1',
       product: {
@@ -61,12 +54,8 @@ export const useCartStore = create<CartState>((set, get) => ({
     },
   ],
   isCartOpen: false,
-  isPaymentOpen: false,
-  paymentMode: 'dp_50',
 
   setIsCartOpen: (open) => set({ isCartOpen: open }),
-  setIsPaymentOpen: (open) => set({ isPaymentOpen: open }),
-  setPaymentMode: (mode) => set({ paymentMode: mode }),
 
   addItem: (newItem) => {
     const id = `cart-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`
@@ -106,17 +95,4 @@ export const useCartStore = create<CartState>((set, get) => ({
   getTotalAmount: () => {
     return get().getSubtotal() + get().getSecurityDepositTotal()
   },
-
-  getDownPaymentAmount: () => {
-    // 50% of the subtotal + full security deposit
-    const subtotal = get().getSubtotal()
-    const deposit = get().getSecurityDepositTotal()
-    return Math.round(subtotal * 0.5) + deposit
-  },
-
-  getBalanceAmount: () => {
-    const subtotal = get().getSubtotal()
-    return Math.round(subtotal * 0.5)
-  },
 }))
-

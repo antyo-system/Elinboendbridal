@@ -25,6 +25,8 @@ export const About: React.FC = () => {
   const handleBookingSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     setBookingSuccess(true)
+    const msg = `Hello Elinboend Bridal Stylist!%0A%0AI would like to request a Private Fitting Session:%0A- Name: ${bookingData.name}%0A- Phone: ${bookingData.phone}%0A- Preferred Date: ${bookingData.date}%0A- Time Slot: ${bookingData.slot}%0A- Occasion: ${bookingData.type}%0A%0APlease confirm my appointment slot.`
+    window.open(`https://wa.me/6287880111169?text=${msg}`, '_blank')
   }
 
   const faqs = [
@@ -45,8 +47,8 @@ export const About: React.FC = () => {
       a: 'Please bring the exact wedding day heels (or shoes with the target heel height) so our seamstresses can set the exact hemline. We also recommend wearing seamless nude undergarments.',
     },
     {
-      q: 'How do I pay with the Midtrans Payment Gateway?',
-      a: 'You can complete your reservation online using QRIS (GoPay, ShopeePay, BCA Mobile), Virtual Accounts (BCA, Mandiri, BRI, BNI), or Credit Cards. You have the choice to pay a 50% Down Payment to secure your date, with the balance settled during your final fitting.',
+      q: 'How do I reserve and pay for a gown via WhatsApp?',
+      a: 'Simply select your preferred gown and size on our catalog, click "Order via WhatsApp", and our stylist will confirm availability for your wedding date and guide you through the full payment and fitting schedule directly on WhatsApp.',
     },
   ]
 
@@ -61,7 +63,7 @@ export const About: React.FC = () => {
           </div>
 
           <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-charcoal-900 tracking-tight leading-tight">
-            The Art of Bridal Architecture & Haute Couture
+            Exclusive Wedding Gowns & Party Dresses
           </h1>
 
           <p className="text-xs sm:text-sm text-charcoal-600 leading-relaxed">
@@ -110,7 +112,7 @@ export const About: React.FC = () => {
           </div>
           <div className="aspect-[3/4] overflow-hidden bg-cream-50 border border-cream-200 shadow-md translate-y-6">
             <img
-              src="https://images.unsplash.com/photo-1549416878-b9ca35c2d47b?auto=format&fit=crop&w=700&q=80"
+              src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=700&q=80"
               alt="Bridal Fitting Experience"
               className="w-full h-full object-cover"
             />

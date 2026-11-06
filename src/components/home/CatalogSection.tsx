@@ -25,9 +25,11 @@ export const CatalogSection: React.FC<CatalogSectionProps> = ({
 }) => {
   const { addItem } = useCartStore()
 
-  // Search & Filter & Sort States
+  // Search & Filter & Sort States (Closed by default on mobile for clean UX)
   const [searchQuery, setSearchQuery] = useState<string>('')
-  const [isFilterVisible, setIsFilterVisible] = useState<boolean>(true)
+  const [isFilterVisible, setIsFilterVisible] = useState<boolean>(() =>
+    typeof window !== 'undefined' ? window.innerWidth >= 1024 : false
+  )
   const [sortBy, setSortBy] = useState<string>('newest')
 
   // Detailed Filter States
@@ -240,7 +242,7 @@ export const CatalogSection: React.FC<CatalogSectionProps> = ({
         {isFilterVisible && (
           <aside
             id="product-filters"
-            className="bg-cream-50/70 border border-cream-200 p-5 space-y-6 shadow-xs sticky top-28"
+            className="bg-cream-50/70 border border-cream-200 p-5 space-y-6 shadow-xs lg:sticky lg:top-28"
           >
             <div className="flex items-center justify-between border-b border-cream-300 pb-3">
               <div className="flex items-center space-x-2">
@@ -447,18 +449,11 @@ export const CatalogSection: React.FC<CatalogSectionProps> = ({
                 return (
                   <div
                     key={product.id}
-                    className="group relative bg-white border border-cream-200 flex flex-col justify-between transition-all duration-300 hover:shadow-lg hover:border-primary-400"
+                    className="group relative bg-white rounded-xl overflow-hidden border border-cream-200 flex flex-col justify-between transition-all duration-300 hover:shadow-md hover:border-primary-300"
                   >
-                    {/* Top Badges */}
-                    <div className="absolute top-2.5 left-2.5 z-10 flex flex-col gap-1">
-                      {product.badge_label && (
-                        <span className="bg-charcoal-900/90 text-white text-[9px] font-bold uppercase tracking-widest px-2 py-0.5">
-                          {product.badge_label}
-                        </span>
-                      )}
-                    </div>
+                    {/* Top-Right Discount Badge Only (Clean Like Kembang Seladang) */}
                     {discount && (
-                      <div className="absolute top-2.5 right-2.5 z-10 bg-primary-600 text-white text-[10px] font-extrabold px-1.5 py-0.5 shadow-xs">
+                      <div className="absolute top-0 right-0 z-10 bg-primary-600 text-white text-[10px] sm:text-[11px] font-extrabold px-2.5 py-1 rounded-bl-lg shadow-xs">
                         -{discount}%
                       </div>
                     )}
@@ -466,61 +461,69 @@ export const CatalogSection: React.FC<CatalogSectionProps> = ({
                     {/* Dress Image with Clickable Link */}
                     <Link
                       to={`/products/${product.slug || product.id}`}
-                      className="aspect-[3/4] w-full overflow-hidden bg-cream-50 relative block cursor-pointer"
+                      className="aspect-square sm:aspect-[4/5] w-full overflow-hidden bg-cream-50 relative block cursor-pointer"
                     >
                       <img
                         src={product.images[0]}
                         alt={product.title}
-                        className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
+                        className="h-full w-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-105"
                       />
                     </Link>
 
-                    {/* Content Details */}
-                    <div className="p-3.5 flex flex-col flex-grow justify-between space-y-3">
-                      <div className="space-y-1.5">
-                        <span className="text-[10px] uppercase font-bold text-primary-700 tracking-wider">
-                          {product.silhouette} • {product.occasion}
-                        </span>
+                    {/* Content Details (Kembang Seladang Structure) */}
+                    <div className="p-3 sm:p-3.5 flex flex-col flex-grow justify-between">
+                      {/* 1. Product Name & Value Tags */}
+                      <div className="space-y-2">
                         <Link
                           to={`/products/${product.slug || product.id}`}
-                          className="block cursor-pointer group-hover:text-primary-700"
+                          className="block cursor-pointer"
                         >
                           <h4
-                            className="font-display text-sm font-bold text-charcoal-900 leading-snug group-hover:text-primary-700 transition-colors line-clamp-2"
+                            className="font-sans text-xs sm:text-sm font-bold text-charcoal-900 leading-snug group-hover:text-primary-700 transition-colors line-clamp-2"
                             title={product.title}
                           >
                             {product.title}
                           </h4>
                         </Link>
-                      </div>
 
-                      {/* Pricing & Add to Cart Action */}
-                      <div className="pt-2 border-t border-cream-100 flex items-center justify-between">
-                        <div>
-                          <div className="flex items-baseline space-x-1.5">
-                            <span className="text-xs sm:text-sm font-extrabold text-charcoal-900">
-                              {formatCurrency(product.rental_price)}
-                            </span>
-                            {product.original_rental_price && (
-                              <span className="text-[10px] text-charcoal-400 line-through">
-                                {formatCurrency(product.original_rental_price)}
-                              </span>
-                            )}
-                          </div>
-                          <span className="text-[10px] text-charcoal-400 font-medium">
-                            / 3 days rental
+                        {/* Value Tags (Like Garansi Segar / Free Card) */}
+                        <div className="flex flex-wrap items-center gap-1.5">
+                          <span className="inline-block bg-primary-50 text-primary-700 border border-primary-200/80 text-[10px] font-semibold px-1.5 py-0.5 rounded">
+                            Free Fitting
+                          </span>
+                          <span className="inline-block bg-cream-100 text-charcoal-700 border border-cream-300 text-[10px] font-semibold px-1.5 py-0.5 rounded">
+                            3-Day Rent
                           </span>
                         </div>
+                      </div>
 
-                        {/* Round Add Button */}
+                      {/* 2. Dashed Divider + Stacked Price & Plus Button */}
+                      <div className="mt-3 pt-2.5 border-t border-dashed border-cream-200 flex items-end justify-between gap-2">
+                        <div className="min-w-0">
+                          {discount && (
+                            <span className="inline-block bg-primary-50 text-primary-700 text-[9px] font-extrabold uppercase tracking-wide px-1.5 py-0.5 rounded mb-1">
+                              SAVE {discount}%
+                            </span>
+                          )}
+                          <div className="text-sm sm:text-base font-extrabold text-primary-700 leading-tight truncate">
+                            {formatCurrency(product.rental_price)}
+                          </div>
+                          {product.original_rental_price && (
+                            <div className="text-[11px] text-charcoal-400 line-through leading-tight mt-0.5 truncate">
+                              {formatCurrency(product.original_rental_price)}
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Round Add Button (Shrink-0 so it never overflows) */}
                         <button
                           type="button"
                           onClick={() => handleAddToCart(product, 'rental')}
-                          aria-label={`Rent ${product.title}`}
-                          className={`w-8 h-8 rounded-full border flex items-center justify-center transition-all cursor-pointer ${
+                          aria-label={`Add ${product.title} to bag`}
+                          className={`w-8 h-8 sm:w-9 sm:h-9 shrink-0 rounded-full border flex items-center justify-center transition-all cursor-pointer ${
                             isJustAdded
-                              ? 'bg-primary-600 border-primary-600 text-white scale-110'
-                              : 'border-primary-500 text-primary-600 hover:bg-primary-600 hover:text-white'
+                              ? 'bg-primary-600 border-primary-600 text-white scale-105'
+                              : 'border-primary-400 text-primary-600 hover:bg-primary-600 hover:text-white'
                           }`}
                         >
                           {isJustAdded ? (
