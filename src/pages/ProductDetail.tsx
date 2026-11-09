@@ -10,7 +10,7 @@ import {
   ChevronDown,
   MessageCircle,
 } from 'lucide-react'
-import { PRODUCTS_DATA } from '../data/mockData'
+import { useProduct } from '../hooks/useProducts'
 import { useCartStore } from '../store/useCartStore'
 import { formatCurrency } from '../utils/formatCurrency'
 
@@ -18,20 +18,36 @@ export const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
 
-  const product = PRODUCTS_DATA.find((p) => p.slug === id || p.id === id)
+  const { product, isLoading } = useProduct(id)
   const { addItem } = useCartStore()
 
   // Core Selection State
   const [acquisitionType, setAcquisitionType] = useState<'rental' | 'purchase'>('rental')
-  const [selectedSize, setSelectedSize] = useState<string>(
-    product?.sizes_available.includes('S') ? 'S' : product?.sizes_available[0] || 'S'
-  )
+  const [selectedSize, setSelectedSize] = useState<string>('S')
   const [activeImageIndex, setActiveImageIndex] = useState<number>(0)
   const [isAdded, setIsAdded] = useState<boolean>(false)
   const [showSizeGuide, setShowSizeGuide] = useState<boolean>(false)
 
+  // Keep size in sync when product finishes loading
+  React.useEffect(() => {
+    if (product?.sizes_available && product.sizes_available.length > 0) {
+      if (!product.sizes_available.includes(selectedSize)) {
+        setSelectedSize(product.sizes_available.includes('S') ? 'S' : product.sizes_available[0])
+      }
+    }
+  }, [product])
+
   // Clean Collapsible Accordions for Details
   const [openSection, setOpenSection] = useState<'details' | 'policy' | null>('details')
+
+  if (isLoading && !product) {
+    return (
+      <div className="pt-20 pb-24 text-center space-y-4 max-w-md mx-auto px-4">
+        <div className="w-8 h-8 border-2 border-primary-600 border-t-transparent rounded-full animate-spin mx-auto" />
+        <p className="text-xs text-charcoal-500">Loading gown details...</p>
+      </div>
+    )
+  }
 
   if (!product) {
     return (

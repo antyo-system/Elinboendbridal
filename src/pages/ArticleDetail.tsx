@@ -1,11 +1,20 @@
 import React from 'react'
 import { useParams, Link, Navigate } from 'react-router-dom'
 import { ArrowLeft, Clock, Calendar, User, Share2, Sparkles } from 'lucide-react'
-import { ARTICLES_DATA } from '../data/mockData'
+import { useArticle } from '../hooks/useArticles'
 
 export const ArticleDetail: React.FC = () => {
   const { slug } = useParams<{ slug: string }>()
-  const article = ARTICLES_DATA.find((a) => a.slug === slug)
+  const { article, isLoading } = useArticle(slug)
+
+  if (isLoading && !article) {
+    return (
+      <div className="py-24 text-center space-y-3">
+        <div className="w-8 h-8 border-2 border-primary-600 border-t-transparent rounded-full animate-spin mx-auto" />
+        <p className="text-xs text-charcoal-500">Loading article...</p>
+      </div>
+    )
+  }
 
   if (!article) {
     return <Navigate to="/articles" replace />

@@ -4,12 +4,13 @@ import { ArrowRight, Sparkles, Calendar } from 'lucide-react'
 import { HeroBanner } from '../components/home/HeroBanner'
 import { CategorySlider } from '../components/home/CategorySlider'
 import { CatalogSection } from '../components/home/CatalogSection'
-import { ARTICLES_DATA } from '../data/mockData'
+import { useArticles } from '../hooks/useArticles'
 
 export const Home: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
+  const { data: articles = [] } = useArticles()
 
-  const latestArticles = ARTICLES_DATA.slice(0, 3)
+  const latestArticles = articles.slice(0, 3)
 
   return (
     <div className="pt-4 sm:pt-6 space-y-12 pb-24">

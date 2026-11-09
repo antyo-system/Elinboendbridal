@@ -1,17 +1,18 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, BookOpen, Clock, User } from 'lucide-react'
-import { ARTICLES_DATA } from '../data/mockData'
+import { useArticles } from '../hooks/useArticles'
 
 export const Articles: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
+  const { data: articles = [] } = useArticles()
 
   const categories = ['all', 'Silhouette Guide', 'Bridal Budget', 'Fitting & Care']
 
   const filteredArticles =
     selectedCategory === 'all'
-      ? ARTICLES_DATA
-      : ARTICLES_DATA.filter((a) => a.category.toLowerCase() === selectedCategory.toLowerCase())
+      ? articles
+      : articles.filter((a) => a.category.toLowerCase() === selectedCategory.toLowerCase())
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">

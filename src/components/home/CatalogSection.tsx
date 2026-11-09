@@ -9,7 +9,7 @@ import {
   RotateCcw,
   X,
 } from 'lucide-react'
-import { PRODUCTS_DATA } from '../../data/mockData'
+import { useProducts } from '../../hooks/useProducts'
 import { formatCurrency } from '../../utils/formatCurrency'
 import { useCartStore } from '../../store/useCartStore'
 import { Product, OccasionType } from '../../types'
@@ -24,6 +24,7 @@ export const CatalogSection: React.FC<CatalogSectionProps> = ({
   setSelectedCategory,
 }) => {
   const { addItem } = useCartStore()
+  const { data: products = [] } = useProducts()
 
   // Search & Filter & Sort States (Closed by default on mobile for clean UX)
   const [searchQuery, setSearchQuery] = useState<string>('')
@@ -63,6 +64,7 @@ export const CatalogSection: React.FC<CatalogSectionProps> = ({
     if (selectedSize !== 'all') count++
     return count
   }, [
+    products,
     searchQuery,
     selectedCategory,
     maxPrice,
@@ -73,7 +75,7 @@ export const CatalogSection: React.FC<CatalogSectionProps> = ({
 
   // Filter & Sort Logic
   const filteredProducts = useMemo(() => {
-    const list = PRODUCTS_DATA.filter((product) => {
+    const list = products.filter((product) => {
       // 1. Search Query
       if (searchQuery.trim() !== '') {
         const query = searchQuery.toLowerCase().trim()
@@ -113,6 +115,7 @@ export const CatalogSection: React.FC<CatalogSectionProps> = ({
       return b.id.localeCompare(a.id)
     })
   }, [
+    products,
     searchQuery,
     selectedCategory,
     maxPrice,
