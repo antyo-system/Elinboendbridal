@@ -1,7 +1,10 @@
-import { useQuery } from '@tanstack/react-query'
+import { useEffect } from 'react'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { supabase, isSupabaseConfigured } from '../lib/supabase'
 import { ARTICLES_DATA } from '../data/mockData'
 import type { Article } from '../types'
+
+const STOREFRONT_ARTICLES_KEY = ['storefront-articles']
 
 function formatDate(isoString?: string | null): string {
   if (!isoString) return 'Oct 28, 2026'
@@ -37,8 +40,30 @@ function mapRowToArticle(row: any): Article {
 }
 
 export function useArticles() {
+  const queryClient = useQueryClient()
+
+  useEffect(() => {
+    const client = supabase
+    if (!isSupabaseConfigured || !client) return
+
+    const channel = client
+      .channel('storefront-articles-realtime')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'articles' },
+        () => {
+          queryClient.invalidateQueries({ queryKey: STOREFRONT_ARTICLES_KEY })
+        }
+      )
+      .subscribe()
+
+    return () => {
+      void client.removeChannel(channel)
+    }
+  }, [queryClient])
+
   return useQuery<Article[]>({
-    queryKey: ['storefront-articles'],
+    queryKey: STOREFRONT_ARTICLES_KEY,
     queryFn: async () => {
       if (!isSupabaseConfigured || !supabase) {
         return ARTICLES_DATA
@@ -55,14 +80,14 @@ export function useArticles() {
         return ARTICLES_DATA
       }
 
-      if (!data || data.length === 0) {
-        return ARTICLES_DATA
-      }
-
       return data.map(mapRowToArticle)
     },
-    initialData: ARTICLES_DATA,
-    staleTime: 1000 * 60 * 5, // 5 minutes
+    placeholderData: ARTICLES_DATA,
+    staleTime: 0,
+    refetchInterval: 30_000,
+    refetchIntervalInBackground: false,
+    refetchOnMount: 'always',
+    refetchOnWindowFocus: true,
   })
 }
 
@@ -71,3 +96,4 @@ export function useArticle(slug: string | undefined) {
   const article = articles.find((a) => a.slug === slug || a.id === slug)
   return { article, isLoading, error }
 }
+

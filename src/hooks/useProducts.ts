@@ -1,7 +1,10 @@
-import { useQuery } from '@tanstack/react-query'
+import { useEffect } from 'react'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { supabase, isSupabaseConfigured } from '../lib/supabase'
 import { PRODUCTS_DATA } from '../data/mockData'
 import type { Product, ProductType, SilhouetteType, OccasionType } from '../types'
+
+const STOREFRONT_PRODUCTS_KEY = ['storefront-products']
 
 function mapRowToProduct(row: any): Product {
   return {
@@ -37,8 +40,30 @@ function mapRowToProduct(row: any): Product {
 }
 
 export function useProducts() {
+  const queryClient = useQueryClient()
+
+  useEffect(() => {
+    const client = supabase
+    if (!isSupabaseConfigured || !client) return
+
+    const channel = client
+      .channel('storefront-products-realtime')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'products' },
+        () => {
+          queryClient.invalidateQueries({ queryKey: STOREFRONT_PRODUCTS_KEY })
+        }
+      )
+      .subscribe()
+
+    return () => {
+      void client.removeChannel(channel)
+    }
+  }, [queryClient])
+
   return useQuery<Product[]>({
-    queryKey: ['storefront-products'],
+    queryKey: STOREFRONT_PRODUCTS_KEY,
     queryFn: async () => {
       if (!isSupabaseConfigured || !supabase) {
         return PRODUCTS_DATA
@@ -55,14 +80,14 @@ export function useProducts() {
         return PRODUCTS_DATA
       }
 
-      if (!data || data.length === 0) {
-        return PRODUCTS_DATA
-      }
-
       return data.map(mapRowToProduct)
     },
-    initialData: PRODUCTS_DATA,
-    staleTime: 1000 * 60 * 5, // 5 minutes
+    placeholderData: PRODUCTS_DATA,
+    staleTime: 0,
+    refetchInterval: 30_000,
+    refetchIntervalInBackground: false,
+    refetchOnMount: 'always',
+    refetchOnWindowFocus: true,
   })
 }
 
@@ -71,3 +96,4 @@ export function useProduct(idOrSlug: string | undefined) {
   const product = products.find((p) => p.slug === idOrSlug || p.id === idOrSlug)
   return { product, isLoading, error }
 }
+
