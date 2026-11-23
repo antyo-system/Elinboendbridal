@@ -107,13 +107,14 @@ export const CatalogSection: React.FC<CatalogSectionProps> = ({
       return true
     })
 
-    // Sort items
-    return list.sort((a, b) => {
-      if (sortBy === 'price-asc') return a.rental_price - b.rental_price
-      if (sortBy === 'price-desc') return b.rental_price - a.rental_price
-      // Default: newest
-      return b.id.localeCompare(a.id)
-    })
+    // Sort items (Supabase query already returns newest first by created_at DESC)
+    if (sortBy === 'price-asc') {
+      return [...list].sort((a, b) => a.rental_price - b.rental_price)
+    }
+    if (sortBy === 'price-desc') {
+      return [...list].sort((a, b) => b.rental_price - a.rental_price)
+    }
+    return list
   }, [
     products,
     searchQuery,
