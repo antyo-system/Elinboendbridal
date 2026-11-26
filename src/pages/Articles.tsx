@@ -1,11 +1,21 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, BookOpen, Clock, User } from 'lucide-react'
 import { useArticles } from '../hooks/useArticles'
+import { updatePageSeo } from '../utils/seo'
 
 export const Articles: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
   const { data: articles = [] } = useArticles()
+
+  useEffect(() => {
+    updatePageSeo({
+      title: 'The Bridal Journal & Styling Guides — Elinboend Bridal',
+      description:
+        'Expert wedding gown silhouette guides, rental vs custom budget advice, and private fitting etiquette from Elinboend Bridal.',
+      canonicalPath: '/articles',
+    })
+  }, [])
 
   const categories = ['all', 'Silhouette Guide', 'Bridal Budget', 'Fitting & Care']
 
@@ -22,7 +32,7 @@ export const Articles: React.FC = () => {
           <BookOpen className="w-3.5 h-3.5" />
           <span>The Bridal Journal</span>
         </div>
-        <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-charcoal-900 tracking-tight">
+        <h1 className="font-script text-4xl sm:text-6xl font-bold text-charcoal-900 tracking-normal">
           Editorial Guidance for Every Bride
         </h1>
         <p className="text-xs sm:text-sm text-charcoal-500 leading-relaxed">

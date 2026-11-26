@@ -4,9 +4,11 @@ import { CartItem } from '../types'
 interface CartState {
   items: CartItem[]
   isCartOpen: boolean
+  isFittingModalOpen: boolean
 
   // Actions
   setIsCartOpen: (open: boolean) => void
+  setIsFittingModalOpen: (open: boolean) => void
   addItem: (item: Omit<CartItem, 'id'>) => void
   removeItem: (id: string) => void
   clearCart: () => void
@@ -54,8 +56,10 @@ export const useCartStore = create<CartState>((set, get) => ({
     },
   ],
   isCartOpen: false,
+  isFittingModalOpen: false,
 
   setIsCartOpen: (open) => set({ isCartOpen: open }),
+  setIsFittingModalOpen: (open) => set({ isFittingModalOpen: open }),
 
   addItem: (newItem) => {
     const id = `cart-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`

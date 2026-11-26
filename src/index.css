@@ -1,46 +1,57 @@
 @import 'tailwindcss';
 
-/* ===== Elinboend Bridal Luxury Design Tokens ===== */
+/* ===== Exact Brittany Signature Font from Omah Poetrie ===== */
+@font-face {
+  font-family: 'BrittanySignature';
+  src: url('/fonts/BrittanySignature.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ===== Elinboend Bridal — Exact Omah Poetrie Color Palette & Font Tokens ===== */
 @theme {
-  --font-display: 'Cormorant Garamond', Georgia, serif;
-  --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-script: 'BrittanySignature', cursive;
+  --font-display: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
 
-  /* Warm Rose-Gold & Champagne Primary */
-  --color-primary-50: #fbf7f4;
-  --color-primary-100: #f5ede6;
-  --color-primary-200: #ecdcce;
-  --color-primary-300: #dfc4af;
-  --color-primary-400: #cea58a;
-  --color-primary-500: #bf8d6d;
-  --color-primary-600: #aa7352;
-  --color-primary-700: #8c5b3f;
-  --color-primary-800: #734b36;
-  --color-primary-900: #5f3f2f;
+  /* Exact Omah Poetrie Primary Caramel (#b4835b) & Warm Peach-Tan (#dcb494) */
+  --color-primary-50: #fffbf8;
+  --color-primary-100: #f8efe6;
+  --color-primary-200: #edd8c4;
+  --color-primary-300: #dcb494;
+  --color-primary-400: #cca07c;
+  --color-primary-500: #c0916b;
+  --color-primary-600: #b4835b;
+  --color-primary-700: #9a6d48;
+  --color-primary-800: #7e5839;
+  --color-primary-900: #65462d;
 
-  /* Cream & Soft Ivory */
-  --color-cream-50: #fdfcfa;
-  --color-cream-100: #faf8f5;
-  --color-cream-200: #f5f1eb;
-  --color-cream-300: #eee8df;
-  --color-cream-400: #e2d8cb;
+  /* Exact Omah Poetrie Soft Warm Cream Canvas (#fffbf8) */
+  --color-cream-50: #fffbf8;
+  --color-cream-100: #faf4ee;
+  --color-cream-200: #efe5da;
+  --color-cream-300: #e3d5c5;
+  --color-cream-400: #d1beaa;
 
-  /* Regal Gold Accents */
-  --color-gold-300: #f5e2a3;
-  --color-gold-400: #e6c86e;
-  --color-gold-500: #caa53d;
-  --color-gold-600: #a78229;
+  /* Warm Sand & Soft Gold Highlights (#dcb494) */
+  --color-gold-300: #edd8c4;
+  --color-gold-400: #dcb494;
+  --color-gold-500: #b4835b;
+  --color-gold-600: #9a6d48;
 
-  /* Editorial Charcoal */
-  --color-charcoal-50: #f8f8f8;
-  --color-charcoal-100: #e8e8e8;
-  --color-charcoal-200: #d1d1d1;
-  --color-charcoal-300: #b0b0b0;
+  /* Exact Omah Poetrie Charcoal & Warm Taupe (#4c4c4c) */
+  --color-charcoal-50: #f9fafb;
+  --color-charcoal-100: #e5e7eb;
+  --color-charcoal-200: #d1d5db;
+  --color-charcoal-300: #9ca3af;
   --color-charcoal-400: #888888;
-  --color-charcoal-500: #666666;
-  --color-charcoal-600: #4a4a4a;
-  --color-charcoal-700: #333333;
-  --color-charcoal-800: #222222;
-  --color-charcoal-900: #141414;
+  --color-charcoal-500: #6b7280;
+  --color-charcoal-600: #5c5c5c;
+  --color-charcoal-700: #57534e;
+  --color-charcoal-800: #4c4c4c;
+  --color-charcoal-900: #3d3d3d;
 }
 
 @layer base {
@@ -60,16 +71,22 @@
   body {
     margin: 0;
     font-family: var(--font-body);
-    color: var(--color-charcoal-900);
-    background-color: #ffffff;
+    color: var(--color-charcoal-800);
+    background-color: var(--color-cream-50);
     line-height: 1.6;
     overflow-x: hidden;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
-    letter-spacing: -0.015em;
   }
+}
+
+/* Authentic Brittany Signature Script Class (No synthetic bolding so strokes match Omah Poetrie 1:1) */
+.font-script {
+  font-family: 'BrittanySignature', cursive;
+  font-weight: 400 !important;
+  line-height: 1.45;
 }
 
 /* Custom scrollbar */
@@ -80,4 +97,3 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-

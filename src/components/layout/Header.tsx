@@ -5,7 +5,7 @@ import { useCartStore } from '../../store/useCartStore'
 
 export const Header: React.FC = () => {
   const location = useLocation()
-  const { items, setIsCartOpen } = useCartStore()
+  const { items, setIsCartOpen, setIsFittingModalOpen } = useCartStore()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   const totalItemCount = items.reduce((sum, item) => sum + item.quantity, 0)
@@ -16,13 +16,13 @@ export const Header: React.FC = () => {
   }, [location.pathname, location.hash])
 
   const navLinks = [
-    { label: 'HOME', path: '/' },
-    { label: 'ARTICLES', path: '/articles' },
-    { label: 'ABOUT', path: '/about' },
+    { label: 'Home', path: '/' },
+    { label: 'Articles', path: '/articles' },
+    { label: 'About', path: '/about' },
   ]
 
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-cream-200">
+    <header className="sticky top-0 z-40 bg-cream-50/95 backdrop-blur-md border-b border-cream-200">
       {/* Main Navigation Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
         {/* Left: Mobile Hamburger Button (Visible on Mobile, Hidden on Desktop) */}
@@ -38,7 +38,7 @@ export const Header: React.FC = () => {
           </button>
         </div>
 
-        {/* Left: Desktop Navigation Links (Hidden on Mobile, Visible on Desktop) */}
+        {/* Left: Desktop Navigation Links */}
         <nav className="hidden md:flex items-center space-x-8">
           {navLinks.map((link) => {
             const isActive =
@@ -50,10 +50,10 @@ export const Header: React.FC = () => {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`text-xs font-bold tracking-widest transition-colors duration-200 uppercase ${
+                className={`text-sm font-medium transition-colors duration-200 ${
                   isActive
-                    ? 'text-primary-600 border-b-2 border-primary-600 pb-1'
-                    : 'text-charcoal-700 hover:text-charcoal-900'
+                    ? 'text-primary-600 font-semibold border-b-2 border-primary-600 pb-1'
+                    : 'text-charcoal-700 hover:text-primary-600'
                 }`}
               >
                 {link.label}
@@ -62,30 +62,28 @@ export const Header: React.FC = () => {
           })}
         </nav>
 
-        {/* Center: Brand Logo (Clean & Never Cropped on Mobile) */}
+        {/* Center: Signature Script Brand Logo (Matches Omah Poetrie Logo Style) */}
         <div className="text-center flex-1 md:flex-none px-2">
-          <Link to="/" className="inline-block group">
-            <h1 className="font-display text-xl sm:text-3xl font-bold tracking-tight text-charcoal-900 group-hover:text-primary-700 transition-colors whitespace-nowrap">
+          <Link to="/" className="inline-block group py-1">
+            <h1 className="font-script text-2xl sm:text-3xl text-primary-600 group-hover:text-primary-700 transition-colors whitespace-nowrap">
               Elinboend Bridal
             </h1>
-            <p className="hidden sm:block text-[10px] tracking-[0.18em] text-primary-600 font-semibold uppercase -mt-1">
-              Exclusive Wedding Gowns & Party Dresses
-            </p>
           </Link>
         </div>
 
-        {/* Right Actions: Fitting (Desktop) + Cart Icon with Badge */}
+        {/* Right Actions: Fitting Popup Trigger (Desktop) + Cart Icon with Badge */}
         <div className="flex items-center space-x-3 sm:space-x-5">
-          <Link
-            to="/about#fitting"
+          <button
+            type="button"
+            onClick={() => setIsFittingModalOpen(true)}
             aria-label="Book a private fitting"
-            className="hidden sm:flex text-charcoal-700 hover:text-primary-600 transition-colors items-center space-x-1.5"
+            className="hidden sm:flex text-charcoal-700 hover:text-primary-600 transition-colors items-center space-x-1.5 cursor-pointer"
           >
-            <Calendar className="w-4 h-4" />
-            <span className="text-xs font-semibold uppercase tracking-wider text-charcoal-600">
-              Fitting
+            <Calendar className="w-4 h-4 text-primary-600" />
+            <span className="text-sm font-medium text-charcoal-700 hover:text-primary-600">
+              Fitting Appointment
             </span>
-          </Link>
+          </button>
 
           <button
             type="button"
@@ -93,9 +91,9 @@ export const Header: React.FC = () => {
             aria-label="Shopping Bag"
             className="relative text-charcoal-800 hover:text-primary-600 transition-colors p-1.5 -mr-1 cursor-pointer"
           >
-            <ShoppingBag className="w-5 h-5 sm:w-5 sm:h-5" />
+            <ShoppingBag className="w-5 h-5" />
             {totalItemCount > 0 && (
-              <span className="absolute -top-0.5 -right-1 bg-charcoal-900 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-xs">
+              <span className="absolute -top-0.5 -right-1 bg-primary-600 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-xs">
                 {totalItemCount}
               </span>
             )}
@@ -103,10 +101,10 @@ export const Header: React.FC = () => {
         </div>
       </div>
 
-      {/* Mobile Dropdown Menu (Matches Kembang Seladang Clean Style) */}
+      {/* Mobile Dropdown Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-white border-b border-cream-200 shadow-lg">
-          <nav className="max-w-7xl mx-auto px-4 py-2 divide-y divide-cream-100">
+        <div className="md:hidden bg-cream-50 border-b border-cream-200 shadow-lg">
+          <nav className="max-w-7xl mx-auto px-4 py-2 divide-y divide-cream-200/70">
             {navLinks.map((link) => {
               const isActive =
                 link.path === '/'
@@ -118,7 +116,7 @@ export const Header: React.FC = () => {
                   key={link.path}
                   to={link.path}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className={`block py-3.5 text-xs font-bold tracking-widest uppercase transition-colors ${
+                  className={`block py-3.5 text-sm font-semibold transition-colors ${
                     isActive ? 'text-primary-600' : 'text-charcoal-800 hover:text-primary-600'
                   }`}
                 >
@@ -126,13 +124,16 @@ export const Header: React.FC = () => {
                 </Link>
               )
             })}
-            <Link
-              to="/about#fitting"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="block py-3.5 text-xs font-bold tracking-widest uppercase text-charcoal-800 hover:text-primary-600 transition-colors"
+            <button
+              type="button"
+              onClick={() => {
+                setIsMobileMenuOpen(false)
+                setIsFittingModalOpen(true)
+              }}
+              className="w-full text-left block py-3.5 text-sm font-semibold text-charcoal-800 hover:text-primary-600 transition-colors cursor-pointer"
             >
-              PRIVATE FITTING
-            </Link>
+              Fitting Appointment
+            </button>
           </nav>
         </div>
       )}

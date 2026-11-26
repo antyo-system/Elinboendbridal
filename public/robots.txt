@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+# Sitemaps for Google Search Console
+Sitemap: https://www.elinboendbridal.com/sitemap.xml
+Sitemap: https://elinboendbridal.com/sitemap.xml

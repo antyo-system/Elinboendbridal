@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import {
   ArrowLeft,
@@ -13,6 +13,7 @@ import {
 import { useProduct } from '../hooks/useProducts'
 import { useCartStore } from '../store/useCartStore'
 import { formatCurrency } from '../utils/formatCurrency'
+import { updatePageSeo } from '../utils/seo'
 
 export const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>()
@@ -20,6 +21,17 @@ export const ProductDetail: React.FC = () => {
 
   const { product, isLoading } = useProduct(id)
   const { addItem } = useCartStore()
+
+  useEffect(() => {
+    if (product) {
+      updatePageSeo({
+        title: `${product.title} — Elinboend Bridal`,
+        description: product.description,
+        canonicalPath: `/products/${product.slug}`,
+        ogImage: product.images[0],
+      })
+    }
+  }, [product])
 
   // Core Selection State
   const [acquisitionType, setAcquisitionType] = useState<'rental' | 'purchase'>('rental')

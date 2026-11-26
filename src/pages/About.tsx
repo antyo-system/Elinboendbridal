@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Sparkles,
   Scissors,
@@ -10,9 +10,19 @@ import {
   ChevronDown,
   CheckCircle2,
 } from 'lucide-react'
+import { updatePageSeo } from '../utils/seo'
 
 export const About: React.FC = () => {
   const [openFaq, setOpenFaq] = useState<number | null>(0)
+
+  useEffect(() => {
+    updatePageSeo({
+      title: 'About Us & Private Fitting — Elinboend Bridal Bintaro',
+      description:
+        'Visit Elinboend Bridal in Bintaro Sektor 7, Tangerang Selatan. Book your 1-on-1 private wedding gown fitting session or consult our master bridal artisans.',
+      canonicalPath: '/about',
+    })
+  }, [])
   const [bookingSuccess, setBookingSuccess] = useState(false)
   const [bookingData, setBookingData] = useState({
     name: '',
@@ -57,13 +67,13 @@ export const About: React.FC = () => {
       {/* 1. Atelier Hero Story */}
       <section className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <div className="space-y-5">
-          <div className="inline-flex items-center space-x-2 text-primary-700 font-bold text-xs uppercase tracking-widest bg-primary-50 px-3 py-1 border border-primary-200">
-            <Sparkles className="w-3.5 h-3.5 text-gold-500" />
-            <span>Atelier Heritage</span>
+          <div className="inline-flex items-center space-x-2 text-primary-700 font-bold text-xs uppercase tracking-widest bg-primary-50 px-3 py-1 rounded-full border border-primary-200">
+            <Sparkles className="w-3.5 h-3.5 text-primary-600" />
+            <span>Our Story &amp; Studio</span>
           </div>
 
-          <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-charcoal-900 tracking-tight leading-tight">
-            Exclusive Wedding Gowns & Party Dresses
+          <h1 className="font-script text-4xl sm:text-5xl lg:text-6xl font-bold text-charcoal-900 tracking-normal leading-tight">
+            Exclusive Wedding Gowns &amp; Party Dresses
           </h1>
 
           <p className="text-xs sm:text-sm text-charcoal-600 leading-relaxed">
@@ -127,7 +137,7 @@ export const About: React.FC = () => {
             <Scissors className="w-4 h-4 text-primary-600" />
             <span>The Bespoke Journey</span>
           </div>
-          <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-charcoal-900">
+          <h2 className="font-script text-3xl sm:text-5xl font-bold text-charcoal-900">
             How We Craft Your Dream Fit
           </h2>
         </div>
@@ -174,7 +184,7 @@ export const About: React.FC = () => {
             <span>VIP Appointment</span>
           </div>
 
-          <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-charcoal-900">
+          <h2 className="font-script text-3xl sm:text-5xl font-bold text-charcoal-900">
             Reserve Your Private Fitting Session
           </h2>
 

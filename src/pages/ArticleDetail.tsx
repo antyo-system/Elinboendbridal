@@ -1,11 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useParams, Link, Navigate } from 'react-router-dom'
 import { ArrowLeft, Clock, Calendar, User, Share2, Sparkles } from 'lucide-react'
 import { useArticle } from '../hooks/useArticles'
+import { updatePageSeo } from '../utils/seo'
 
 export const ArticleDetail: React.FC = () => {
   const { slug } = useParams<{ slug: string }>()
   const { article, isLoading } = useArticle(slug)
+
+  useEffect(() => {
+    if (article) {
+      updatePageSeo({
+        title: `${article.title} — Elinboend Bridal Journal`,
+        description: article.excerpt,
+        canonicalPath: `/articles/${article.slug}`,
+        ogImage: article.cover_image,
+      })
+    }
+  }, [article])
 
   if (isLoading && !article) {
     return (
