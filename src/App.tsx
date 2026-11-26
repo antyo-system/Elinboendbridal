@@ -4,12 +4,12 @@ import { Header } from './components/layout/Header'
 import { Footer } from './components/layout/Footer'
 import { WhatsAppFab } from './components/layout/WhatsAppFab'
 import { CartDrawer } from './components/cart/CartDrawer'
-import { FittingBookingModal } from './components/fitting/FittingBookingModal'
 import { Home } from './pages/Home'
 import { Articles } from './pages/Articles'
 import { ArticleDetail } from './pages/ArticleDetail'
 import { ProductDetail } from './pages/ProductDetail'
 import { About } from './pages/About'
+import { FittingAppointment } from './pages/FittingAppointment'
 
 export const App: React.FC = () => {
   return (
@@ -21,6 +21,7 @@ export const App: React.FC = () => {
       <main className="flex-grow">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/fitting" element={<FittingAppointment />} />
           <Route path="/products" element={<Navigate to="/#catalog" replace />} />
           <Route path="/products/:id" element={<ProductDetail />} />
           <Route path="/articles" element={<Articles />} />
@@ -35,9 +36,6 @@ export const App: React.FC = () => {
 
       {/* Shopping Bag Slide-over Drawer */}
       <CartDrawer />
-
-      {/* Fitting Appointment T&C + Session Booking Popup Modal */}
-      <FittingBookingModal />
 
       {/* Floating WhatsApp Concierge Button */}
       <WhatsAppFab />

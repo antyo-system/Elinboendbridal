@@ -1,10 +1,8 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { MessageCircle, FolderOpen, Clock } from 'lucide-react'
-import { useCartStore } from '../../store/useCartStore'
 
 export const HeroBanner: React.FC = () => {
-  const { setIsFittingModalOpen } = useCartStore()
-
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <section className="relative overflow-hidden bg-charcoal-800 text-white rounded-2xl shadow-xl">
@@ -53,15 +51,14 @@ export const HeroBanner: React.FC = () => {
               <span>Check Catalog</span>
             </a>
 
-            {/* 3. Fitting Appointment (Opens T&C + Session Booking Popup) */}
-            <button
-              type="button"
-              onClick={() => setIsFittingModalOpen(true)}
-              className="w-full bg-[#b4835b] hover:bg-[#9a6d48] text-white py-3.5 px-5 rounded-xl font-semibold text-xs sm:text-sm flex items-center justify-center space-x-2.5 shadow-md transition-all cursor-pointer"
+            {/* 3. Fitting Appointment (Navigates to Full-Screen /fitting Page) */}
+            <Link
+              to="/fitting"
+              className="w-full bg-[#b4835b] hover:bg-[#9a6d48] text-white py-3.5 px-5 rounded-xl font-semibold text-xs sm:text-sm flex items-center justify-center space-x-2.5 shadow-md transition-all"
             >
               <Clock className="w-4 h-4 shrink-0" />
               <span>Fitting Appointment</span>
-            </button>
+            </Link>
 
             {/* 4. Instagram (@elinboend.bridal) */}
             <a

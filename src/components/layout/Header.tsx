@@ -71,19 +71,18 @@ export const Header: React.FC = () => {
           </Link>
         </div>
 
-        {/* Right Actions: Fitting Popup Trigger (Desktop) + Cart Icon with Badge */}
+        {/* Right Actions: Fitting Page Link (Desktop) + Cart Icon with Badge */}
         <div className="flex items-center space-x-3 sm:space-x-5">
-          <button
-            type="button"
-            onClick={() => setIsFittingModalOpen(true)}
+          <Link
+            to="/fitting"
             aria-label="Book a private fitting"
-            className="hidden sm:flex text-charcoal-700 hover:text-primary-600 transition-colors items-center space-x-1.5 cursor-pointer"
+            className="hidden sm:flex text-charcoal-700 hover:text-primary-600 transition-colors items-center space-x-1.5"
           >
             <Calendar className="w-4 h-4 text-primary-600" />
             <span className="text-sm font-medium text-charcoal-700 hover:text-primary-600">
               Fitting Appointment
             </span>
-          </button>
+          </Link>
 
           <button
             type="button"
@@ -124,16 +123,13 @@ export const Header: React.FC = () => {
                 </Link>
               )
             })}
-            <button
-              type="button"
-              onClick={() => {
-                setIsMobileMenuOpen(false)
-                setIsFittingModalOpen(true)
-              }}
-              className="w-full text-left block py-3.5 text-sm font-semibold text-charcoal-800 hover:text-primary-600 transition-colors cursor-pointer"
+            <Link
+              to="/fitting"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="block py-3.5 text-sm font-semibold text-charcoal-800 hover:text-primary-600 transition-colors"
             >
               Fitting Appointment
-            </button>
+            </Link>
           </nav>
         </div>
       )}
