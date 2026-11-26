@@ -496,7 +496,7 @@ export const CatalogSection: React.FC<CatalogSectionProps> = ({
                             Free Fitting
                           </span>
                           <span className="inline-block bg-cream-100 text-charcoal-700 border border-cream-300 text-[10px] font-semibold px-1.5 py-0.5 rounded">
-                            3-Day Rent
+                            Gown Rental
                           </span>
                         </div>
                       </div>

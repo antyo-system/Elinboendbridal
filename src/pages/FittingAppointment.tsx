@@ -59,7 +59,7 @@ export const FittingAppointment: React.FC = () => {
     updatePageSeo({
       title: 'Booking Jadwal Fitting — Elinboend Bridal',
       description:
-        'Atur sesi fitting gaun pengantin dan pesta di studio Elinboend Bridal Tangerang Selatan. Pilih jumlah customer, tanggal, dan jam sesi fitting Anda.',
+        'Atur sesi fitting gaun pengantin dan pesta di studio Elinboend Bridal. Pilih jumlah customer, tanggal, dan jam sesi fitting Anda.',
       canonicalPath: '/fitting',
     })
   }, [])
@@ -139,7 +139,7 @@ export const FittingAppointment: React.FC = () => {
               Elinboend Bridal
             </h1>
             <p className="text-sm sm:text-base font-bold text-[#dcb494]">
-              Private Fitting Appointment — Studio Tangerang Selatan
+              Private Fitting Appointment
             </p>
           </div>
         </div>

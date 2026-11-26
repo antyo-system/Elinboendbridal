@@ -24,7 +24,7 @@ export const CartDrawer: React.FC = () => {
     const itemsList = items
       .map(
         (it) =>
-          `- ${it.product.title} (${it.acquisition_type === 'rental' ? '3-Day Rental' : 'Custom Purchase'}, Size: ${it.size}) = ${formatCurrency(
+          `- ${it.product.title} (${it.acquisition_type === 'rental' ? 'Rental' : 'Custom Purchase'}, Size: ${it.size}) = ${formatCurrency(
             it.acquisition_type === 'rental' ? it.product.rental_price : it.product.purchase_price
           )}`
       )
@@ -117,7 +117,7 @@ export const CartDrawer: React.FC = () => {
                       </div>
 
                       <p className="text-xs text-charcoal-500">
-                        {item.acquisition_type === 'rental' ? '3-Day Rental' : 'Custom Purchase'} •{' '}
+                        {item.acquisition_type === 'rental' ? 'Gown Rental' : 'Custom Purchase'} •{' '}
                         Size {item.size}
                       </p>
                     </div>

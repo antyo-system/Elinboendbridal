@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { MapPin, Phone, Mail, Clock, ShieldCheck } from 'lucide-react'
+import { Phone, Mail, Clock, ShieldCheck } from 'lucide-react'
 
 export const Footer: React.FC = () => {
   return (
@@ -35,9 +35,7 @@ export const Footer: React.FC = () => {
               Elinboend Bridal
             </h3>
             <p className="text-xs text-charcoal-200 leading-relaxed max-w-sm">
-              Exclusive wedding gowns and party dresses tailored to perfection. Experience the
-              warmth of private studio fittings, 3-day luxury rentals, and custom made-to-measure
-              craftsmanship in Tangerang Selatan.
+              Exclusive wedding gowns and party dresses tailored to perfection.
             </p>
             <div className="flex items-center space-x-2 text-xs text-primary-300 font-semibold pt-1">
               <ShieldCheck className="w-4 h-4" />
@@ -91,13 +89,9 @@ export const Footer: React.FC = () => {
                 <Mail className="w-4 h-4 text-primary-400 shrink-0" />
                 <span>concierge@elinboendbridal.com</span>
               </div>
-              <div className="flex items-start space-x-2.5">
-                <MapPin className="w-4 h-4 text-primary-400 shrink-0 mt-0.5" />
-                <span>Bintaro Sektor 7, Tangerang Selatan, Banten</span>
-              </div>
               <div className="flex items-center space-x-2.5">
                 <Clock className="w-4 h-4 text-primary-400 shrink-0" />
-                <span>Tuesday – Sunday: 10:00 – 18:00 WIB</span>
+                <span>By Appointment Only</span>
               </div>
               <div className="pt-1">
                 <a

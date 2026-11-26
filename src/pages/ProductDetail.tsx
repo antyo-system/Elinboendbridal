@@ -99,7 +99,7 @@ export const ProductDetail: React.FC = () => {
 
   const handleWhatsAppConsultation = () => {
     const text = `Hello Elinboend Bridal Stylist!%0A%0AI am interested in *${product.title}*:%0A- Option: ${
-      acquisitionType === 'rental' ? '3-Day Rental' : 'Custom Purchase'
+      acquisitionType === 'rental' ? 'Gown Rental' : 'Custom Purchase'
     }%0A- Size: ${selectedSize}%0A- Price: ${formatCurrency(
       activePrice
     )}%0A%0ACould I check fitting availability for this dress?`
@@ -201,7 +201,7 @@ export const ProductDetail: React.FC = () => {
                 </span>
               )}
               <span className="text-xs font-medium text-charcoal-500">
-                {acquisitionType === 'rental' ? '/ 3 days rental' : '(custom made)'}
+                {acquisitionType === 'rental' ? '(rental)' : '(custom made)'}
               </span>
             </div>
           </div>
@@ -221,7 +221,7 @@ export const ProductDetail: React.FC = () => {
                     : 'text-charcoal-500 hover:text-charcoal-900'
                 }`}
               >
-                3-Day Rental
+                Gown Rental
               </button>
               <button
                 type="button"
@@ -398,7 +398,7 @@ export const ProductDetail: React.FC = () => {
                   </li>
                   <li className="flex items-start space-x-2">
                     <Check className="w-3.5 h-3.5 text-primary-600 shrink-0 mt-0.5" />
-                    <span>Standard 3-day rental (pickup D-1, event day, return D+1).</span>
+                    <span>Flexible gown rental schedule confirmed directly via WhatsApp.</span>
                   </li>
                   <li className="flex items-start space-x-2">
                     <Check className="w-3.5 h-3.5 text-primary-600 shrink-0 mt-0.5" />

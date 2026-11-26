@@ -15,7 +15,7 @@ export const Home: React.FC = () => {
     updatePageSeo({
       title: 'Elinboend Bridal — Exclusive Wedding Gowns & Party Dresses',
       description:
-        'Discover exquisite wedding gowns, modern kebaya pengantin, and evening party dresses at Elinboend Bridal Bintaro, Tangerang Selatan. Available for 3-day rental and custom tailoring.',
+        'Discover exquisite wedding gowns, modern kebaya pengantin, and evening party dresses at Elinboend Bridal. Available for gown rental and custom tailoring.',
       canonicalPath: '/',
     })
   }, [])

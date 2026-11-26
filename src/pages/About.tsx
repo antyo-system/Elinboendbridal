@@ -17,9 +17,9 @@ export const About: React.FC = () => {
 
   useEffect(() => {
     updatePageSeo({
-      title: 'About Us & Private Fitting — Elinboend Bridal Bintaro',
+      title: 'About Us & Private Fitting — Elinboend Bridal',
       description:
-        'Visit Elinboend Bridal in Bintaro Sektor 7, Tangerang Selatan. Book your 1-on-1 private wedding gown fitting session or consult our master bridal artisans.',
+        'Visit Elinboend Bridal Studio. Book your 1-on-1 private wedding gown fitting session or consult our master bridal artisans.',
       canonicalPath: '/about',
     })
   }, [])
@@ -42,7 +42,7 @@ export const About: React.FC = () => {
   const faqs = [
     {
       q: 'How does the gown rental process work?',
-      a: 'All rental bookings are based on a standard 3-day duration (e.g. Friday collection, Saturday wedding, Monday return). Extended rentals (7 days for destination weddings) are also available upon request. Professional dry cleaning and pre-event alterations are included with every rental.',
+      a: 'All rental bookings include professional dry cleaning and custom pre-event alterations to ensure a flawless fit for your special day.',
     },
     {
       q: 'How is the security deposit (uang jaminan) handled?',
@@ -79,7 +79,7 @@ export const About: React.FC = () => {
           <p className="text-xs sm:text-sm text-charcoal-600 leading-relaxed">
             Founded with a passion for architectural corsetry and exquisite European fabrics,{' '}
             <strong>Elinboend Bridal</strong> is dedicated to creating moments of pure magic for
-            brides in Tangerang Selatan and beyond.
+            every bride.
           </p>
 
           <p className="text-xs sm:text-sm text-charcoal-600 leading-relaxed">
@@ -321,28 +321,23 @@ export const About: React.FC = () => {
         </div>
       </section>
 
-      {/* 4. Showroom & Atelier Location */}
+      {/* 4. Showroom & Atelier Contact */}
       <section className="border-t border-cream-200 pt-10 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
         <div className="space-y-4">
           <div className="inline-flex items-center space-x-2 text-primary-700 font-bold text-xs uppercase tracking-widest">
             <MapPin className="w-4 h-4" />
-            <span>Visit Our Atelier</span>
+            <span>Visit Our Studio</span>
           </div>
           <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-charcoal-900">
-            Elinboend Bridal Atelier Bintaro
+            Elinboend Bridal Studio
           </h2>
           <p className="text-xs sm:text-sm text-charcoal-600 leading-relaxed">
-            Conveniently located in Bintaro Sektor 7, Tangerang Selatan. Accessible via Tol Pondok
-            Aren and KRL Jurang Mangu station. Private parking available on premises.
+            Experience our exclusive collection of wedding gowns and party dresses in a private,
+            comfortable fitting studio by appointment.
           </p>
           <div className="space-y-2 text-xs text-charcoal-700">
             <p>
-              <strong>Address:</strong> Ruko Bintaro Arcade 1, Sektor 7, Bintaro Jaya, Tangerang
-              Selatan 15224
-            </p>
-            <p>
-              <strong>Opening Hours:</strong> Tuesday – Sunday, 10:00 – 18:00 WIB (Closed on
-              Mondays)
+              <strong>Fitting Schedule:</strong> By Appointment Only
             </p>
             <p>
               <strong>WhatsApp Concierge:</strong> +62 878-8011-1169
@@ -350,22 +345,23 @@ export const About: React.FC = () => {
           </div>
         </div>
 
-        {/* Map Placeholder Card */}
-        <div className="bg-cream-100 border border-cream-300 p-8 text-center space-y-3">
-          <MapPin className="w-10 h-10 text-primary-600 mx-auto" />
+        {/* Contact Card */}
+        <div className="bg-cream-100 border border-cream-300 rounded-2xl p-8 text-center space-y-3">
+          <Phone className="w-10 h-10 text-primary-600 mx-auto" />
           <h3 className="font-display text-lg font-bold text-charcoal-900">
-            Interactive Map & Directions
+            Private Studio Appointment
           </h3>
           <p className="text-xs text-charcoal-500 max-w-sm mx-auto">
-            Click below to open direct GPS navigation via Google Maps or Waze to our atelier showroom.
+            Contact our bridal concierge on WhatsApp to receive our studio location pin and
+            confirm your private fitting schedule.
           </p>
           <a
-            href="https://maps.google.com/?q=Bintaro+Sektor+7+Tangerang+Selatan"
+            href="https://wa.me/6287880111169?text=Halo%20Elinboend%20Bridal!%20Saya%20ingin%20bertanya%20lokasi%20studio%20dan%20jadwal%20fitting."
             target="_blank"
             rel="noreferrer"
-            className="inline-block bg-charcoal-900 hover:bg-charcoal-800 text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 transition-colors"
+            className="inline-block bg-primary-600 hover:bg-primary-700 text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-xl transition-colors"
           >
-            Open in Google Maps
+            Chat on WhatsApp
           </a>
         </div>
       </section>
