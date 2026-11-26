@@ -177,15 +177,15 @@ export const CatalogSection: React.FC<CatalogSectionProps> = ({
           )}
         </div>
 
-        {/* Action Controls on the Right */}
-        <div className="flex flex-wrap items-center gap-2 sm:justify-end">
+        {/* Action Controls on the Right (Always 1 Row for Filter + Sort By) */}
+        <div className="flex flex-nowrap items-center gap-2 sm:justify-end">
           {/* Toggle Filter Button */}
           <button
             type="button"
             onClick={() => setIsFilterVisible((prev) => !prev)}
             aria-controls="product-filters"
             aria-expanded={isFilterVisible}
-            className={`inline-flex h-10 items-center justify-center gap-2 border px-3.5 text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer ${
+            className={`inline-flex h-10 shrink-0 items-center justify-center gap-1.5 border px-3.5 text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer ${
               activeFilterCount > 0
                 ? 'border-primary-600 bg-primary-600 text-white shadow-xs'
                 : isFilterVisible
@@ -193,7 +193,7 @@ export const CatalogSection: React.FC<CatalogSectionProps> = ({
                 : 'border-charcoal-900 text-charcoal-900 hover:bg-charcoal-900 hover:text-white'
             }`}
           >
-            <SlidersHorizontal className="h-3.5 w-3.5" />
+            <SlidersHorizontal className="h-3.5 w-3.5 shrink-0" />
             <span>FILTER {activeFilterCount > 0 ? `(${activeFilterCount})` : ''}</span>
           </button>
 
@@ -202,18 +202,19 @@ export const CatalogSection: React.FC<CatalogSectionProps> = ({
             <button
               type="button"
               onClick={handleResetFilters}
-              className="inline-flex h-10 items-center justify-center border border-cream-300 px-3 text-xs font-bold uppercase tracking-wider text-charcoal-600 transition-colors hover:border-charcoal-900 hover:text-charcoal-900 cursor-pointer"
+              aria-label="Reset filters"
+              className="inline-flex h-10 shrink-0 items-center justify-center border border-cream-300 px-2.5 text-xs font-bold uppercase tracking-wider text-charcoal-600 transition-colors hover:border-charcoal-900 hover:text-charcoal-900 cursor-pointer"
             >
-              <RotateCcw className="w-3.5 h-3.5 mr-1" />
-              <span>Reset</span>
+              <RotateCcw className="w-3.5 h-3.5 sm:mr-1" />
+              <span className="hidden sm:inline">Reset</span>
             </button>
           )}
 
-          {/* Sort By Dropdown */}
-          <div className="flex h-10 items-center space-x-2 border border-cream-200 bg-cream-50 px-3">
+          {/* Sort By Dropdown (Side-by-side with Filter in 1 row) */}
+          <div className="flex h-10 flex-1 sm:flex-initial min-w-0 items-center justify-between space-x-1.5 border border-cream-200 bg-cream-50 px-3">
             <label
               htmlFor="sort-by-select"
-              className="text-[10px] font-bold uppercase tracking-wider text-charcoal-500 cursor-pointer"
+              className="text-[10px] font-bold uppercase tracking-wider text-charcoal-500 shrink-0 cursor-pointer"
             >
               SORT BY:
             </label>
@@ -222,7 +223,7 @@ export const CatalogSection: React.FC<CatalogSectionProps> = ({
               aria-label="Sort product options"
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="bg-transparent pr-2 text-xs font-bold uppercase text-charcoal-800 focus:outline-none cursor-pointer"
+              className="w-full sm:w-auto min-w-0 bg-transparent text-xs font-bold uppercase text-charcoal-800 focus:outline-none cursor-pointer truncate"
             >
               <option value="newest">NEWEST</option>
               <option value="price-asc">Price: Low to High</option>
